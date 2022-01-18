@@ -6,7 +6,7 @@ namespace CRFricke.EF.Core.Utilities
     /// <summary>
     /// Identifies a self seeding database context. 
     /// </summary>
-    internal interface ISeedingContext
+    public interface ISeedingContext
     {
         /// <summary>
         /// Called to seed the database.
