@@ -1,0 +1,8 @@
+{
+  "solution": {
+    "path": "EF.Core.Utilities.sln",
+    "projects": [
+      "EF.Core.Utilities\\EF.Core.Utilities.csproj"
+    ]
+  }
+}
