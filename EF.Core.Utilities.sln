@@ -24,6 +24,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".assets", ".assets", "{3D114C22-8650-4855-BC12-AD3CD1DD992F}"
+	ProjectSection(SolutionItems) = preProject
+		assets\tools.png = assets\tools.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +51,7 @@ Global
 		{EDDCFEA7-5183-4894-8D7B-26D4012B6C74} = {3A016C83-8D2F-4696-BE2D-5BDEB362ACAE}
 		{ABAE73AC-82A2-4007-B27F-E277EF5510DC} = {3A016C83-8D2F-4696-BE2D-5BDEB362ACAE}
 		{6D7E97D8-F781-43E1-8DE7-9007A86E5C09} = {ABAE73AC-82A2-4007-B27F-E277EF5510DC}
+		{3D114C22-8650-4855-BC12-AD3CD1DD992F} = {3A016C83-8D2F-4696-BE2D-5BDEB362ACAE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3489BEB4-4352-47CB-ACA6-4070EA89CAAE}
