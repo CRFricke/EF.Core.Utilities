@@ -20,4 +20,8 @@
     <ProjectReference Include="..\EF.Core.Utilities\EF.Core.Utilities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
+  </ItemGroup>
+
 </Project>
