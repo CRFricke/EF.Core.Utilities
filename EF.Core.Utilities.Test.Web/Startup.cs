@@ -22,14 +22,13 @@ namespace EF.Core.Utilities.Test.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"))
+                options.UseSqlite(Configuration.GetConnectionString("ApplicationContextConnection"))
                 );
 
-            services.AddDbMigrator<ApplicationDbContext>();
+            services.AddDbInitializer(options =>
+                options.UseDbContext(typeof(ApplicationDbContext), DbInitializationOption.Migrate)
+                );
 
-            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddRoles<ApplicationRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
         }
 

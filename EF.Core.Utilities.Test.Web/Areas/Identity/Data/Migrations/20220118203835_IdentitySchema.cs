@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace EF.Core.Utilities.Test.Web.Data.Migrations
+namespace EF.Core.Utilities.Test.Web.Areas.Identity.Data.Migrations
 {
     public partial class IdentitySchema : Migration
     {
