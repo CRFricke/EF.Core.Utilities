@@ -48,3 +48,5 @@ public void ConfigureServices(IServiceCollection services)
     ⁝
 }
 ```
+
+<a href="https://www.flaticon.com/free-icons/installation" title="installation icons">Installation icons created by catkuro - Flaticon</a>
