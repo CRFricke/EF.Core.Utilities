@@ -1,8 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CRFricke.EF.Core.Utilities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
 
 namespace EF.Core.Utilities.Test.Web.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext, ISeedingContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { }
@@ -11,10 +17,13 @@ namespace EF.Core.Utilities.Test.Web.Data
         {
             base.OnModelCreating(builder);
 
+            builder.Entity<Customer>()
+                .HasMany(e => e.Orders).WithOne().HasForeignKey(e => e.CustomerId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder.Entity<Order>()
-                .HasMany(e => e.Items)
-                .WithOne()
-                .HasForeignKey(e => e.Id)
+                .HasMany(e => e.Items).WithOne().HasForeignKey(e => e.OrderId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
         }
@@ -22,5 +31,34 @@ namespace EF.Core.Utilities.Test.Web.Data
         public virtual DbSet<Customer> Customers { get; set; }
 
         public virtual DbSet<Order> Orders { get; set; }
+
+
+        public async Task SeedDatabaseAsync(IServiceProvider serviceProvider)
+        {
+            var normalizer = serviceProvider.GetRequiredService<ILookupNormalizer>();
+            var logger = serviceProvider.GetRequiredService<ILoggerFactory>().CreateLogger<ApplicationDbContext>();
+
+            if (await Customers.AnyAsync())
+            {
+                return;
+            }
+
+            var customer = new Customer
+            {
+                Name = "Paints Are Us"
+            }.SetOrders( new Order { }.SetItems("Paint", "Brushes", "GooBeGone") );
+
+            var x = await Customers.AddAsync(customer);
+            logger.LogInformation($"{nameof(Customer)} '{customer.Name}' has been created.");
+
+            try
+            {
+                await SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "SaveChangesAsync() method failed.");
+            }
+        }
     }
 }

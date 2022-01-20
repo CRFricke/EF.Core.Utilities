@@ -362,5 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-/EF.Core.Utilities.Test.Web/Test.Web.Application.db
-/EF.Core.Utilities.Test.Web/Test.Web.Identity.db
+/EF.Core.Utilities.Test.Web/Test.Web.Application.db*
+/EF.Core.Utilities.Test.Web/Test.Web.Identity.db*

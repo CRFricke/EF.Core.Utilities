@@ -13,7 +13,7 @@ namespace EF.Core.Utilities.Test.Web.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.21");
+                .HasAnnotation("ProductVersion", "3.1.22");
 
             modelBuilder.Entity("EF.Core.Utilities.Test.Web.Data.Customer", b =>
                 {
@@ -32,12 +32,18 @@ namespace EF.Core.Utilities.Test.Web.Data.Migrations
             modelBuilder.Entity("EF.Core.Utilities.Test.Web.Data.Item", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("OrderId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("Item");
                 });
@@ -53,6 +59,8 @@ namespace EF.Core.Utilities.Test.Web.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CustomerId");
+
                     b.ToTable("Orders");
                 });
 
@@ -60,7 +68,16 @@ namespace EF.Core.Utilities.Test.Web.Data.Migrations
                 {
                     b.HasOne("EF.Core.Utilities.Test.Web.Data.Order", null)
                         .WithMany("Items")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EF.Core.Utilities.Test.Web.Data.Order", b =>
+                {
+                    b.HasOne("EF.Core.Utilities.Test.Web.Data.Customer", null)
+                        .WithMany("Orders")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
