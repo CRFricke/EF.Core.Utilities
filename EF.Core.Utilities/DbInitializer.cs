@@ -67,7 +67,7 @@ namespace CRFricke.EF.Core.Utilities
                 }
                 catch (Exception ex)
                 {
-                    logger.LogError(ex, "Error occurred initializing database associated with DbContext '{option.DbContextType.FullName}'.");
+                    logger.LogError(ex, $"Error occurred initializing database associated with DbContext '{option.DbContextType.FullName}'.");
                     continue;
                 }
 
@@ -79,7 +79,7 @@ namespace CRFricke.EF.Core.Utilities
                     }
                     catch (Exception ex)
                     {
-                        logger.LogError(ex, "Error occurred seeding database associated with DbContext '{option.DbContextType.FullName}'.");
+                        logger.LogError(ex, $"Error occurred seeding database associated with DbContext '{option.DbContextType.FullName}'.");
                         continue;
                     }
                 }
