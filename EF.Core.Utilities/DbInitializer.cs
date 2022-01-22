@@ -27,17 +27,19 @@ namespace CRFricke.EF.Core.Utilities
             var logger = scopedProvider.GetRequiredService<ILoggerFactory>().CreateLogger<DbInitializer>();
 
             var options = scopedProvider.GetRequiredService<IOptions<DbInitializerOptions>>().Value;
-            if (!options.Options.Any())
+            if (!options.Any())
             {
+                logger.LogWarning($"DbInitializerOptions contains no DbContext entries.");
                 return;
             }
 
             var processedOptions = new List<DbInitializerOption>();
 
-            foreach (var option in options.Options)
+            foreach (var option in options)
             {
                 if (option.DbInitializationOption == DbInitializationOption.None)
                 {
+                    logger.LogWarning($"DbInitializationOption.{option.DbInitializationOption} specified for DbContext '{option.DbContextType.FullName}'; skipping.");
                     continue;
                 }
 

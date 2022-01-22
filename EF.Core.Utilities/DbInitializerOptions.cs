@@ -7,10 +7,8 @@ namespace CRFricke.EF.Core.Utilities
     /// <summary>
     /// Contains the options for the DbInitializer service.
     /// </summary>
-    public class DbInitializerOptions
+    public class DbInitializerOptions : List<DbInitializerOption>
     {
-        internal readonly List<DbInitializerOption> Options = new List<DbInitializerOption>();
-
         /// <summary>
         /// Configures the DbInitilizer to use the specified <see cref="DbContext"/> and <see cref="DbInitializationOption"/>.
         /// </summary>
@@ -24,7 +22,7 @@ namespace CRFricke.EF.Core.Utilities
         /// <exception cref="ArgumentException">
         /// Thrown if the <paramref name="dbContextType"/> parameter specifies a Type that does not derive from <see cref="DbContext"/>.
         /// </exception>
-        public void UseDbContext(Type dbContextType, DbInitializationOption dbInitializationOption)
+        public DbInitializerOptions UseDbContext(Type dbContextType, DbInitializationOption dbInitializationOption)
         {
             if (dbContextType == null)
             {
@@ -36,7 +34,9 @@ namespace CRFricke.EF.Core.Utilities
                 throw new ArgumentException($"'{dbContextType.Name}' does not derive from DbContext.", nameof(dbContextType));
             }
 
-            Options.Add(new DbInitializerOption(dbContextType, dbInitializationOption));
+            Add(new DbInitializerOption(dbContextType, dbInitializationOption));
+
+            return this;
         }
     }
 }

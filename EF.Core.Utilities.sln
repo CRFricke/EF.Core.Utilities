@@ -29,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".assets", ".assets", "{3D11
 		assets\tools.png = assets\tools.png
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF.Core.Utilities.Test", "EF.Core.Utilities.Test\EF.Core.Utilities.Test.csproj", "{65B169EB-D537-4052-9737-16EE970D1042}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{4FA7FA11-45C6-4317-8EAF-48D960F1A7C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FA7FA11-45C6-4317-8EAF-48D960F1A7C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FA7FA11-45C6-4317-8EAF-48D960F1A7C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65B169EB-D537-4052-9737-16EE970D1042}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65B169EB-D537-4052-9737-16EE970D1042}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65B169EB-D537-4052-9737-16EE970D1042}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65B169EB-D537-4052-9737-16EE970D1042}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
