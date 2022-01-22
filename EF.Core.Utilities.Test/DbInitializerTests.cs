@@ -109,6 +109,27 @@ namespace EF.Core.Utilities.Test
             Assert.Contains($"initialized using DbInitializationOption.{dbInitializationOption}", logger.LogEntries[0].Message);
         }
 
+        [Fact(DisplayName = "Issues LogWarning when same DbContext is specified twice")]
+        public async void Test06Async()
+        {
+            var dbInitializationOption = DbInitializationOption.SeedOnly;
+            var dbInitializer = SetupTestEnvironment(
+                new DbInitializerOptions()
+                    .UseDbContext(typeof(DbContext), dbInitializationOption)
+                    .UseDbContext(typeof(DbContext), DbInitializationOption.Migrate),
+                out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out TestLogger<DbInitializer> logger);
+
+            await dbInitializer.StartAsync(default);
+
+            migrator.Verify(m => m.MigrateAsync(null, default), Times.Never());
+            dbFacade.Verify(db => db.EnsureCreatedAsync(default), Times.Never());
+            dbContext.As<ISeedingContext>().Verify(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>()), Times.Once());
+
+            Assert.Equal(2, logger.LogEntries.Count);
+            Assert.Equal(LogLevel.Warning, logger.LogEntries[1].LogLevel);
+            Assert.Contains($"already initialized using DbInitializationOption.{dbInitializationOption}", logger.LogEntries[1].Message);
+        }
+
 
         /// <summary>
         /// Performs common setup and returns an instance of the DbInitializer class.
