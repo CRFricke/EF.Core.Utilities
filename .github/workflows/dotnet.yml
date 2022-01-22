@@ -7,9 +7,12 @@ env:
 
 on:
   push:
-    branches: [ '**' ]
+    branches: ['**']
     paths-ignore: ['**/*.md']
     tags: ['v*']
+
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -61,3 +64,7 @@ jobs:
     - name: Upload NuGet packages
       if: ${{github.ref_type == 'tag'}}
       run: dotnet nuget push "**/*.nupkg" --skip-duplicate --source https://nuget.pkg.github.com/CRFricke/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload packages to NuGet.org
+      if: ${{github.event_name == 'release'}}
+      run: dotnet nuget push "**/*.nupkg" --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
