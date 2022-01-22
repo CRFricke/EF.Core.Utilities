@@ -1,12 +1,14 @@
-﻿# EF.Core.Utilities
+﻿[![.NET](https://github.com/CRFricke/EF.Core.Utilities/actions/workflows/dotnet.yml/badge.svg)](https://github.com/CRFricke/EF.Core.Utilities/actions/workflows/dotnet.yml)
+
+# EF.Core.Utilities
 
 A set of utilities for use with Entity Framework Core.
 
 ## DbInitializer
 
-Initializes the database associated with the specified DbContext. 
-If the DbContext implements the `ISeedingContext` interface, its `SeedDatabaseAsync` method is also called.
 The DbInitializer runs before the application's request pipeline is started.
+It initializes the database associated with the specified DbContext. 
+If the DbContext implements the `ISeedingContext` interface, its `SeedDatabaseAsync` method is also called.
 
 The type of initialization is controlled by the specified `DbInitializationOption` value.
 
@@ -46,10 +48,12 @@ public void ConfigureServices(IServiceCollection services)
         );
 
     services.AddDbInitializer(options => {
-        options.UseDbContext(typeof(ApplicationDbContext), DbInitializationOption.Migrate);
+        options.UseDbContext<ApplicationDbContext>(DbInitializationOption.Migrate);
             });
     ⁝
 }
 ```
+
+More than one `UseDbContext` clause can be chained if the application contains more than one database.
 
 <a href="https://www.flaticon.com/free-icons/installation" title="installation icons">Installation icons created by catkuro - Flaticon</a>

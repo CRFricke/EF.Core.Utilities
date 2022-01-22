@@ -10,12 +10,28 @@ namespace CRFricke.EF.Core.Utilities
     public class DbInitializerOptions : List<DbInitializerOption>
     {
         /// <summary>
-        /// Configures the DbInitilizer to use the specified <see cref="DbContext"/> and <see cref="DbInitializationOption"/>.
+        /// Configures the DbInitializer to use the specified <see cref="DbContext"/> and <see cref="DbInitializationOption"/>.
+        /// </summary>
+        /// <typeparam name="TContext">
+        /// The <see cref="Type"/> of the <see cref="DbContext"/> whose associated database is to be initialized.
+        /// </typeparam>
+        /// <param name="dbInitializationOption">The database initialization option.</param>
+        /// <returns>The DbInitializerOptions instance so that further configuration can be chained.</returns>
+        public DbInitializerOptions UseDbContext<TContext>(DbInitializationOption dbInitializationOption) where TContext: DbContext
+        {
+            Add(new DbInitializerOption(typeof(TContext), dbInitializationOption));
+
+            return this;
+        }
+
+        /// <summary>
+        /// Configures the DbInitializer to use the specified <see cref="DbContext"/> and <see cref="DbInitializationOption"/>.
         /// </summary>
         /// <param name="dbContextType">
         /// The <see cref="Type"/> of the <see cref="DbContext"/> whose associated database is to be initialized.
         /// </param>
         /// <param name="dbInitializationOption">The database initialization option.</param>
+        /// <returns>The DbInitializerOptions instance so that further configuration can be chained.</returns>
         /// <exception cref="ArgumentNullException">
         /// Thrown if the <paramref name="dbContextType"/> parameter is <see langword="null"/>.
         /// </exception>

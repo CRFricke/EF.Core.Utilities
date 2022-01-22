@@ -26,7 +26,7 @@ namespace EF.Core.Utilities.Test.Web
                 );
 
             services.AddDbInitializer(options =>
-                options.UseDbContext(typeof(ApplicationDbContext), DbInitializationOption.Migrate)
+                options.UseDbContext<ApplicationDbContext>(DbInitializationOption.Migrate)
                 );
 
             services.AddRazorPages();
