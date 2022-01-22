@@ -38,7 +38,7 @@ namespace EF.Core.Utilities.Test
         {
             var dbInitializationOption = DbInitializationOption.None;
             var dbInitializer = SetupTestEnvironment(
-                new DbInitializerOptions().UseDbContext(typeof(DbContext), dbInitializationOption),
+                new DbInitializerOptions().UseDbContext<DbContext>(dbInitializationOption),
                 out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out TestLogger<DbInitializer> logger);
 
             await dbInitializer.StartAsync(default);
@@ -57,7 +57,7 @@ namespace EF.Core.Utilities.Test
         {
             var dbInitializationOption = DbInitializationOption.Migrate;
             var dbInitializer = SetupTestEnvironment(
-                new DbInitializerOptions().UseDbContext(typeof(DbContext), dbInitializationOption),
+                new DbInitializerOptions().UseDbContext<DbContext>(dbInitializationOption),
                 out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out TestLogger<DbInitializer> logger);
 
             await dbInitializer.StartAsync(default);
@@ -76,7 +76,7 @@ namespace EF.Core.Utilities.Test
         {
             var dbInitializationOption = DbInitializationOption.EnsureCreated;
             var dbInitializer = SetupTestEnvironment(
-                new DbInitializerOptions().UseDbContext(typeof(DbContext), dbInitializationOption),
+                new DbInitializerOptions().UseDbContext<DbContext>(dbInitializationOption),
                 out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out TestLogger<DbInitializer> logger);
 
             await dbInitializer.StartAsync(default);
