@@ -10,6 +10,21 @@ The DbInitializer runs before the application's request pipeline is started.
 It initializes the database associated with the specified DbContext. 
 If the DbContext implements the `ISeedingContext` interface, its `SeedDatabaseAsync` method is also called.
 
+```csharp
+/// <summary>
+/// Identifies a self seeding database context. 
+/// </summary>
+public interface ISeedingContext
+{
+    /// <summary>
+    /// Called to seed the database.
+    /// </summary>
+    /// <param name="serviceProvider">An <see cref="IServiceProvider"/> instance for accessing support services.</param>
+    /// <returns>A Task instance that can be used to await completion of the method.</returns>
+    Task SeedDatabaseAsync(IServiceProvider serviceProvider);
+}
+```
+
 The type of initialization is controlled by the specified `DbInitializationOption` value.
 
 ```csharp
