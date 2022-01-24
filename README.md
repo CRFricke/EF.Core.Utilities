@@ -6,8 +6,8 @@ A set of utilities for use with Entity Framework Core.
 
 ## DbInitializer
 
-The DbInitializer runs before the application's request pipeline is started.
-It initializes the database associated with the specified DbContext. 
+The DbInitializer initializes the database associated with a specified DbContext. 
+It runs before the application's request pipeline is started.
 If the DbContext implements the `ISeedingContext` interface, its `SeedDatabaseAsync` method is also called.
 
 ```csharp
@@ -19,8 +19,12 @@ public interface ISeedingContext
     /// <summary>
     /// Called to seed the database.
     /// </summary>
-    /// <param name="serviceProvider">An <see cref="IServiceProvider"/> instance for accessing support services.</param>
-    /// <returns>A Task instance that can be used to await completion of the method.</returns>
+    /// <param name="serviceProvider">
+    /// An <see cref="IServiceProvider"/> instance for accessing support services.
+    /// </param>
+    /// <returns>
+    /// A Task instance that can be used to await completion of the method.
+    /// </returns>
     Task SeedDatabaseAsync(IServiceProvider serviceProvider);
 }
 ```
@@ -71,4 +75,4 @@ public void ConfigureServices(IServiceCollection services)
 
 More than one `UseDbContext` clause can be chained if the application contains more than one database.
 
-<a href="https://www.flaticon.com/free-icons/installation" title="installation icons">Installation icons created by catkuro - Flaticon</a>
+[Installation icons created by catkuro - Flaticon](https://www.flaticon.com/free-icons/installation "installation icons")

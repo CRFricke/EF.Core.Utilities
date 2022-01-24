@@ -18,6 +18,7 @@
     <PackageProjectUrl>https://github.com/CRFricke/EF.Core.Utilities</PackageProjectUrl>
     <PackageTags>aspnetcore, ef core, utility</PackageTags>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <!-- For 'push' workflow, we embed the symbol package in the DLL and push the nupkg to github.com -->
@@ -39,6 +40,10 @@
 
   <ItemGroup>
     <None Include="..\assets\tools.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
