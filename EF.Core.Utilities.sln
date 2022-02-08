@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{EDDCFEA7-5183-4894-8D7B-26D4012B6C74}"
 	ProjectSection(SolutionItems) = preProject
-		build\ActionModule.psm1 = build\ActionModule.psm1
+		build\ConfigSettings.json = build\ConfigSettings.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{ABAE73AC-82A2-4007-B27F-E277EF5510DC}"
@@ -29,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".assets", ".assets", "{3D11
 		assets\tools.png = assets\tools.png
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EF.Core.Utilities.Test", "EF.Core.Utilities.Test\EF.Core.Utilities.Test.csproj", "{65B169EB-D537-4052-9737-16EE970D1042}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF.Core.Utilities.Test", "EF.Core.Utilities.Test\EF.Core.Utilities.Test.csproj", "{65B169EB-D537-4052-9737-16EE970D1042}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
