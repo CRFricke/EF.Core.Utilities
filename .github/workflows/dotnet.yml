@@ -1,10 +1,5 @@
 name: .NET
 
-env:
-    VER_MAJOR_DEFAULT: 1
-    VER_MINOR_DEFAULT: 0
-    VER_PATCH_DEFAULT: 0
-
 on:
   push:
     branches: ['**']
@@ -29,6 +24,7 @@ jobs:
     - name: Get Build Version
       shell: pwsh
       run: |
+        Invoke-WebRequest -Uri https://raw.githubusercontent.com/crfricke/GitHub.Support/master/build/ActionModule.psm1 -OutFile .\build\ActionModule.psm1
         Import-Module .\build\ActionModule.psm1
         Get-VersionVariables $env:GITHUB_REF
         $Version = "$Tag_Major.$Tag_Minor.$Tag_Patch"
@@ -61,7 +57,7 @@ jobs:
       if: ${{github.ref_type == 'tag'}}
       run: dotnet pack EF.Core.Utilities.NoTests.slnf --configuration $BUILD_CONFIG --no-build /p:Version=$BUILD_VERSION
 
-    - name: Upload NuGet packages
+    - name: Upload NuGet packages to GitHub
       if: ${{github.ref_type == 'tag'}}
       run: dotnet nuget push "**/*.nupkg" --skip-duplicate --source https://nuget.pkg.github.com/CRFricke/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
 
