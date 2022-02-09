@@ -59,6 +59,6 @@ namespace EF.Core.Utilities.Test.Web.Areas.Identity.Data
         /// <param name="userId">The ID of the User being assigned the claim.</param>
         /// <param name="claimValue">The claim value.</param>
         private IdentityUserClaim<string> CreateUserClaim(string claimValue)
-            => new IdentityUserClaim<string> { UserId = Id, ClaimType = ClaimTypes.Role, ClaimValue = claimValue };
+            => new() { UserId = Id, ClaimType = ClaimTypes.Role, ClaimValue = claimValue };
     }
 }

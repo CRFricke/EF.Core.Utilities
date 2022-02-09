@@ -20,6 +20,7 @@ namespace CRFricke.EF.Core.Utilities
             _serviceProvider = serviceProvider;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2254:Template should be a static expression", Justification = "<Pending>")]
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             using var scope = _serviceProvider.CreateScope();
@@ -59,11 +60,11 @@ namespace CRFricke.EF.Core.Utilities
                     switch (option.DbInitializationOption)
                     {
                         case DbInitializationOption.Migrate:
-                            await dbContext.Database.MigrateAsync();
+                            await dbContext.Database.MigrateAsync(cancellationToken);
                             break;
 
                         case DbInitializationOption.EnsureCreated:
-                            await dbContext.Database.EnsureCreatedAsync();
+                            await dbContext.Database.EnsureCreatedAsync(cancellationToken);
                             break;
                     }
                 }

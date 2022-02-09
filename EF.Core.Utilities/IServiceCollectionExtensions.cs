@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CRFricke.EF.Core.Utilities
@@ -10,12 +11,6 @@ namespace CRFricke.EF.Core.Utilities
     /// </summary>
     public static class IServiceCollectionExtensions
     {
-        ///// <summary>
-        ///// Registers a DbInitializer that will initialize the database associated with <typeparamref name="TContext"/> during application startup.
-        ///// </summary>
-        ///// <typeparam name="TContext">The Type of the DbContext whose database is to be initialized.</typeparam>
-        ///// <param name="serviceProvider">An <see cref="IServiceProvider"/> instance for accessing support services.</param>
-        ///// <returns></returns>
         /// <summary>
         /// Registers a DbInitializer that will initialize the database(s) specified by <paramref name="optionsAction"/> parameter during application startup.
         /// </summary>
@@ -26,7 +21,21 @@ namespace CRFricke.EF.Core.Utilities
         {
             services.Configure(optionsAction);
 
-            if (!services.Any(sd => sd.ServiceType == typeof(IHostedService) && sd.ImplementationType == typeof(DbInitializer)))
+            // If the AspNetCore 6.0 minimal bootstrap API is being used, ServiceDescriptors for hosted services are stored seperately 
+            // from the rest of the ServiceDescriptors. In this case, they reside in an internal "HostedServices" property.
+
+            IList<ServiceDescriptor> collection = services;
+
+            if (services.GetType().FullName == "Microsoft.AspNetCore.WebApplicationServiceCollection")
+            {
+                var pi = services.GetType().GetProperty("HostedServices");
+                if (pi != null)
+                {
+                    collection = (IList<ServiceDescriptor>)pi.GetValue(services)!;
+                }
+            }
+
+            if (!collection.Any(sd => sd.ServiceType == typeof(IHostedService) && sd.ImplementationType == typeof(DbInitializer)))
             {
                 services.AddHostedService<DbInitializer>();
             }

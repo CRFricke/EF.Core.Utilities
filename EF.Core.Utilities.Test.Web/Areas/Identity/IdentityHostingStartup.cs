@@ -15,7 +15,6 @@ namespace EF.Core.Utilities.Test.Web.Areas.Identity
         {
             builder.ConfigureServices((context, services) =>
             {
-
                 services.AddDbContext<SecurityDbContext>(options =>
                     options.UseSqlite(context.Configuration.GetConnectionString("IdentityContextConnection"))
                     );
