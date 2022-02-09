@@ -1,11 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EF.Core.Utilities.Test.Web.Pages
 {
@@ -16,7 +12,9 @@ namespace EF.Core.Utilities.Test.Web.Pages
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
+#pragma warning disable IDE0052 // Remove unread private members
         private readonly ILogger<ErrorModel> _logger;
+#pragma warning restore IDE0052 // Remove unread private members
 
         public ErrorModel(ILogger<ErrorModel> logger)
         {

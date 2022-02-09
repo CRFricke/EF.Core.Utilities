@@ -50,6 +50,6 @@ namespace EF.Core.Utilities.Test.Web.Areas.Identity.Data
         /// <param name="claimValue">The claim value.</param>
         /// <returns>A new IdentityRoleClaim with the specified values.</returns>
         private IdentityRoleClaim<string> CreateRoleClaim(string claimValue)
-            => new IdentityRoleClaim<string> { RoleId = Id, ClaimType = ClaimTypes.AuthorizationDecision, ClaimValue = claimValue };
+            => new() { RoleId = Id, ClaimType = ClaimTypes.AuthorizationDecision, ClaimValue = claimValue };
     }
 }

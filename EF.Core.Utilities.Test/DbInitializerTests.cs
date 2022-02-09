@@ -140,7 +140,7 @@ namespace EF.Core.Utilities.Test
         /// <param name="dbFacadeMock">An output parameter containing the DatabaseFacade Mock object.</param>
         /// <param name="testLogger">An output parameter containing the TestLogger object.</param>
         /// <returns>The new DbInitializer instance.</returns>
-        private DbInitializer SetupTestEnvironment(DbInitializerOptions options,  
+        private static DbInitializer SetupTestEnvironment(DbInitializerOptions options,  
             out Mock<DbContext> dbContextMock, out Mock<IMigrator> migratorMock, out Mock<DatabaseFacade> dbFacadeMock, out TestLogger<DbInitializer> testLogger
             )
         {
