@@ -4,10 +4,6 @@ on:
   push:
     branches: ['**']
     paths-ignore: ['**/*.md']
-    tags: ['v*']
-
-  release:
-    types: [published]
 
 jobs:
   build:
@@ -18,27 +14,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Setup PowerShell
+      uses: CRFricke/Setup-PowerShell@v1.0.6
+
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Get Build Version
       shell: pwsh
+      env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_PREFIX: 'v6.0'
       run: |
-        Invoke-WebRequest -Uri https://raw.githubusercontent.com/crfricke/GitHub.Support/master/build/ActionModule.psm1 -OutFile .\build\ActionModule.psm1
-        Import-Module .\build\ActionModule.psm1
-        Get-VersionVariables $env:GITHUB_REF
-        $Version = "$Tag_Major.$Tag_Minor.$Tag_Patch"
-        if ($Tag_PreRelease) { $Version += "-$Tag_PreRelease" }
-        if ($Tag_Build) { $Version += "+$Tag_Build" }
-        Set-ActionVariable "BUILD_VERSION" "$Version"
-        Write-Host "BUILD_VERSION: $Version"
+        Get-VersionVariables
+        Set-ActionVariable "BUILD_VERSION" "$Tag_Version"
+        Write-Host "BUILD_VERSION: $Tag_Version"
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: |
-          3.1.x
-          6.0.x
+        dotnet-version: 6.0.x
         source-url: https://nuget.pkg.github.com/CRFricke/index.json
         owner: CRFricke
       env:
@@ -52,15 +47,3 @@ jobs:
 
     - name: Test
       run: dotnet test --configuration $BUILD_CONFIG --no-build --verbosity normal
-
-    - name: Create NuGet packages
-      if: ${{github.ref_type == 'tag'}}
-      run: dotnet pack EF.Core.Utilities.NoTests.slnf --configuration $BUILD_CONFIG --no-build /p:Version=$BUILD_VERSION
-
-    - name: Upload NuGet packages to GitHub
-      if: ${{github.ref_type == 'tag'}}
-      run: dotnet nuget push "**/*.nupkg" --skip-duplicate --source https://nuget.pkg.github.com/CRFricke/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Upload packages to NuGet.org
-      if: ${{github.event_name == 'release'}}
-      run: dotnet nuget push "**/*.nupkg" --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
