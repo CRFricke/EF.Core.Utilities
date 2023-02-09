@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace CRFricke.EF.Core.Utilities
@@ -17,22 +18,20 @@ namespace CRFricke.EF.Core.Utilities
         /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
         /// <param name="optionsAction">The action to configure the options for the DbInitializer.</param>
         /// <returns>The same <see cref="IServiceProvider"/> instance so multiple calls can be chained.</returns>
+        [UnconditionalSuppressMessage("ReflectionAnalysis", "IL2075:DynamicallyAccessedMembers", Justification = "Just accessing 'HostedServices' property of passed IServiceCollection implementation.")]
         public static IServiceCollection AddDbInitializer(this IServiceCollection services, Action<DbInitializerOptions> optionsAction)
         {
             services.Configure(optionsAction);
 
-            // If the AspNetCore 6.0 minimal bootstrap API is being used, ServiceDescriptors for hosted services are stored seperately 
-            // from the rest of the ServiceDescriptors. In this case, they reside in an internal "HostedServices" property.
+            // In AspNetCore 6.0, ServiceDescriptors for hosted services are stored separately, in the "HostedServices" 
+            // property of the class that implements the IServiceCollection interface (WebApplicationServiceCollection).
 
             IList<ServiceDescriptor> collection = services;
 
-            if (services.GetType().FullName == "Microsoft.AspNetCore.WebApplicationServiceCollection")
+            var pi = services.GetType().GetProperty("HostedServices");
+            if (pi != null)
             {
-                var pi = services.GetType().GetProperty("HostedServices");
-                if (pi != null)
-                {
-                    collection = (IList<ServiceDescriptor>)pi.GetValue(services)!;
-                }
+                collection = (IList<ServiceDescriptor>)pi.GetValue(services)!;
             }
 
             if (!collection.Any(sd => sd.ServiceType == typeof(IHostedService) && sd.ImplementationType == typeof(DbInitializer)))
