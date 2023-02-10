@@ -51,4 +51,4 @@ jobs:
       run: dotnet pack EF.Core.Utilities.NoTests.slnf --configuration $BUILD_CONFIG --no-build /p:Version=$BUILD_VERSION
 
     - name: Upload EF.Core.Utilities NuGet package to GitHub
-      run: dotnet nuget push "**/*.nupkg" --skip-duplicate --source https://nuget.pkg.github.com/CRFricke/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
+      run: dotnet nuget push "**/*.nupkg" --source https://nuget.pkg.github.com/CRFricke/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
