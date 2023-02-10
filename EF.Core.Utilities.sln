@@ -17,6 +17,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{6D7E97D8-F781-43E1-8DE7-9007A86E5C09}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+		.github\workflows\release.yml = .github\workflows\release.yml
 		.github\workflows\tag.yml = .github\workflows\tag.yml
 	EndProjectSection
 EndProject
