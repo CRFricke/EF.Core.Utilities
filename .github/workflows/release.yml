@@ -1,9 +1,8 @@
-name: .NET
+name: Release
 
 on:
-  push:
-    branches: ['**']
-    paths-ignore: ['**/*.md']
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -27,6 +26,7 @@ jobs:
           TAG_PREFIX: 'v6.0'
       run: |
         Get-VersionVariables
+        if ($Tag_PreRelease -or $Tag_Build) { throw "Invalid GITHUB_REF for release." }
         Set-ActionVariable "BUILD_VERSION" "$Tag_Version"
         Write-Host "BUILD_VERSION: $Tag_Version"
 
@@ -47,3 +47,9 @@ jobs:
 
     - name: Test
       run: dotnet test --configuration $BUILD_CONFIG --no-build --verbosity normal
+
+    - name: Create EF.Core.Utilities NuGet package
+      run: dotnet pack EF.Core.Utilities.NoTests.slnf --configuration $BUILD_CONFIG --no-build /p:Version=$BUILD_VERSION
+
+    - name: Upload EF.Core.Utilities package to NuGet.org
+      run: dotnet nuget push "**/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
