@@ -11,8 +11,7 @@ using System;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace EF.Core.Utilities.Test
-{
+namespace EF.Core.Utilities.Test {
     public class DbInitializerTests
     {
         [Fact(DisplayName = "Issues LogWarning when DbInitializerOptions is empty")]
@@ -130,6 +129,81 @@ namespace EF.Core.Utilities.Test
             Assert.Contains($"already initialized using DbInitializationOption.{dbInitializationOption}", logger.LogEntries[1].Message);
         }
 
+        [Fact(DisplayName = "Issues LogError when MigrateAsync fails")]
+        public async void Test07Async()
+        {
+            var expectedException = new Exception("BOOM! Couldn't migrate database.");
+
+            var dbInitializationOption = DbInitializationOption.Migrate;
+            var dbInitializer = SetupTestEnvironment(
+                new DbInitializerOptions().UseDbContext<DbContext>(dbInitializationOption),
+                out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out TestLogger<DbInitializer> logger, 
+                dbException: expectedException
+                );
+
+            await dbInitializer.StartAsync(default);
+
+            migrator.Verify(m => m.MigrateAsync(null, default), Times.Once());
+            dbFacade.Verify(db => db.EnsureCreatedAsync(default), Times.Never());
+            dbContext.As<ISeedingContext>().Verify(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>()), Times.Never());
+
+            Assert.Single(logger.LogEntries);
+            Assert.Equal(LogLevel.Error, logger.LogEntries[0].LogLevel);
+            Assert.NotNull(logger.LogEntries[0].Exception);
+            Assert.Equal(expectedException.Message, logger.LogEntries[0].Exception.Message);
+            Assert.Contains("Error occurred initializing database", logger.LogEntries[0].Message);
+        }
+
+        [Fact(DisplayName = "Issues LogError when EnsureCreatedAsync fails")]
+        public async void Test08Async()
+        {
+            var expectedException = new Exception("BOOM! Couldn't create database.");
+
+            var dbInitializationOption = DbInitializationOption.EnsureCreated;
+            var dbInitializer = SetupTestEnvironment(
+                new DbInitializerOptions().UseDbContext<DbContext>(dbInitializationOption),
+                out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out TestLogger<DbInitializer> logger,
+                dbException: expectedException
+                );
+
+            await dbInitializer.StartAsync(default);
+
+            migrator.Verify(m => m.MigrateAsync(null, default), Times.Never());
+            dbFacade.Verify(db => db.EnsureCreatedAsync(default), Times.Once());
+            dbContext.As<ISeedingContext>().Verify(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>()), Times.Never());
+
+            Assert.Single(logger.LogEntries);
+            Assert.Equal(LogLevel.Error, logger.LogEntries[0].LogLevel);
+            Assert.NotNull(logger.LogEntries[0].Exception);
+            Assert.Equal(expectedException.Message, logger.LogEntries[0].Exception.Message);
+            Assert.Contains("Error occurred initializing database", logger.LogEntries[0].Message);
+        }
+
+        [Fact(DisplayName = "Issues LogError when SeedDatabaseAsync fails")]
+        public async void Test09Async()
+        {
+            var expectedException = new Exception("BOOM! Couldn't seed database.");
+
+            var dbInitializationOption = DbInitializationOption.EnsureCreated;
+            var dbInitializer = SetupTestEnvironment(
+                new DbInitializerOptions().UseDbContext<DbContext>(dbInitializationOption),
+                out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out TestLogger<DbInitializer> logger,
+                seedException: expectedException
+                );
+
+            await dbInitializer.StartAsync(default);
+
+            migrator.Verify(m => m.MigrateAsync(null, default), Times.Never());
+            dbFacade.Verify(db => db.EnsureCreatedAsync(default), Times.Once());
+            dbContext.As<ISeedingContext>().Verify(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>()), Times.Once());
+
+            Assert.Single(logger.LogEntries);
+            Assert.Equal(LogLevel.Error, logger.LogEntries[0].LogLevel);
+            Assert.NotNull(logger.LogEntries[0].Exception);
+            Assert.Equal(expectedException.Message, logger.LogEntries[0].Exception.Message);
+            Assert.Contains("Error occurred seeding database", logger.LogEntries[0].Message);
+        }
+
 
         /// <summary>
         /// Performs common setup and returns an instance of the DbInitializer class.
@@ -141,20 +215,39 @@ namespace EF.Core.Utilities.Test
         /// <param name="testLogger">An output parameter containing the TestLogger object.</param>
         /// <returns>The new DbInitializer instance.</returns>
         private static DbInitializer SetupTestEnvironment(DbInitializerOptions options,  
-            out Mock<DbContext> dbContextMock, out Mock<IMigrator> migratorMock, out Mock<DatabaseFacade> dbFacadeMock, out TestLogger<DbInitializer> testLogger
+            out Mock<DbContext> dbContextMock, out Mock<IMigrator> migratorMock, out Mock<DatabaseFacade> dbFacadeMock, out TestLogger<DbInitializer> testLogger,
+            Exception dbException = null, Exception seedException = null
             )
         {
             var logger = new TestLogger<DbInitializer>();
-            var migrator = Mock.Of<IMigrator>(m => m.MigrateAsync(null, default) == Task.CompletedTask);
+
+            var migrator = new Mock<IMigrator>();
+            if (dbException == null) {
+                migrator.Setup(m => m.MigrateAsync(null, default)).Returns(Task.CompletedTask);
+            } 
+            else {
+                migrator.Setup(m => m.MigrateAsync(null, default)).Throws(dbException);
+            } 
 
             var dbContext = new Mock<DbContext>();
             dbContext.As<IInfrastructure<IServiceProvider>>().Setup(sp => sp.Instance).Returns(
-                Mock.Of<IServiceProvider>(sp => sp.GetService(typeof(IMigrator)) == migrator)
+                Mock.Of<IServiceProvider>(sp => sp.GetService(typeof(IMigrator)) == migrator.Object)
                 );
-            dbContext.As<ISeedingContext>().Setup(sc => sc.SeedDatabaseAsync(null)).Returns(Task.CompletedTask);
+
+            if (seedException == null) {
+                dbContext.As<ISeedingContext>().Setup(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>())).Returns(Task.CompletedTask);
+            }
+            else {
+                dbContext.As<ISeedingContext>().Setup(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>())).Throws(seedException);
+            }
 
             var dbFacade = new Mock<DatabaseFacade>(dbContext.Object);
-            dbFacade.Setup(db => db.EnsureCreatedAsync(default)).Returns(Task.FromResult(true));
+            if (dbException == null) {
+                dbFacade.Setup(db => db.EnsureCreatedAsync(default)).Returns(Task.FromResult(true));
+            }
+            else {
+                dbFacade.Setup(db => db.EnsureCreatedAsync(default)).Throws(dbException);
+            }
 
             dbContext.Setup(c => c.Database).Returns(dbFacade.Object);
 
@@ -175,7 +268,7 @@ namespace EF.Core.Utilities.Test
                 );
 
             dbContextMock = dbContext;
-            migratorMock = Mock.Get(migrator);
+            migratorMock = migrator;
             dbFacadeMock = dbFacade;
             testLogger = logger;
 
