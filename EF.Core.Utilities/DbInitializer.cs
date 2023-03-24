@@ -20,7 +20,6 @@ namespace CRFricke.EF.Core.Utilities
             _serviceProvider = serviceProvider;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2254:Template should be a static expression", Justification = "<Pending>")]
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             using var scope = _serviceProvider.CreateScope();
@@ -30,7 +29,7 @@ namespace CRFricke.EF.Core.Utilities
             var options = scopedProvider.GetRequiredService<IOptions<DbInitializerOptions>>().Value;
             if (!options.Any())
             {
-                logger.LogWarning($"DbInitializerOptions contains no DbContext entries.");
+                logger.LogWarning("DbInitializerOptions contains no DbContext entries.");
                 return;
             }
 
@@ -40,14 +39,20 @@ namespace CRFricke.EF.Core.Utilities
             {
                 if (option.DbInitializationOption == DbInitializationOption.None)
                 {
-                    logger.LogWarning($"DbInitializationOption.{option.DbInitializationOption} specified for DbContext '{option.DbContextType.FullName}'; skipping.");
+                    logger.LogWarning(
+                        "DbInitializationOption.{DbInitializationOption} specified for DbContext '{DbContextType}'; skipping.",
+                        option.DbInitializationOption, option.DbContextType.FullName
+                        );
                     continue;
                 }
 
                 var processedOption = processedOptions.Find(o => o.DbContextType == option.DbContextType);
                 if (processedOption != null)
                 {
-                    logger.LogWarning($"Duplicate DbContext entry ({option}); database already initialized using DbInitializationOption.{processedOption.DbInitializationOption}.");
+                    logger.LogWarning(
+                        "Duplicate DbContext entry ({DbInitializerOption}); database already initialized using DbInitializationOption.{DbInitializationOption}.", 
+                        option, processedOption.DbInitializationOption
+                        );
                     continue;
                 }
 
@@ -70,7 +75,9 @@ namespace CRFricke.EF.Core.Utilities
                 }
                 catch (Exception ex)
                 {
-                    logger.LogError(ex, $"Error occurred initializing database associated with DbContext '{option.DbContextType.FullName}'.");
+                    logger.LogError(ex, "Error occurred initializing database associated with DbContext '{DbContextType}'.", 
+                        option.DbContextType.FullName
+                        );
                     continue;
                 }
 
@@ -82,12 +89,16 @@ namespace CRFricke.EF.Core.Utilities
                     }
                     catch (Exception ex)
                     {
-                        logger.LogError(ex, $"Error occurred seeding database associated with DbContext '{option.DbContextType.FullName}'.");
+                        logger.LogError(ex, "Error occurred seeding database associated with DbContext '{DbContextType}'.", 
+                            option.DbContextType.FullName
+                            );
                         continue;
                     }
                 }
 
-                logger.LogInformation($"Database associated with DbContext '{option.DbContextType.FullName}' initialized using DbInitializationOption.{option.DbInitializationOption}.");
+                logger.LogInformation("Database associated with DbContext '{DbContextType}' initialized using DbInitializationOption.{DbInitializationOption}.", 
+                    option.DbContextType.FullName, option.DbInitializationOption
+                    );
             }
         }
 
