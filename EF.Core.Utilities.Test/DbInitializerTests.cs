@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Testing;
 using Microsoft.Extensions.Options;
 using Moq;
 using System;
@@ -20,7 +21,7 @@ public class DbInitializerTests
     {
         var dbInitializer = SetupTestEnvironment(
             new DbInitializerOptions(), 
-            out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out TestLogger<DbInitializer> logger);
+            out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out FakeLogger<DbInitializer> logger);
 
         await dbInitializer.StartAsync(default);
 
@@ -28,9 +29,9 @@ public class DbInitializerTests
         dbFacade.Verify(db => db.EnsureCreatedAsync(default), Times.Never());
         dbContext.As<ISeedingContext>().Verify(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>()), Times.Never());
 
-        Assert.Single(logger.LogEntries);
-        Assert.Equal(LogLevel.Warning, logger.LogEntries[0].LogLevel);
-        Assert.Contains("no DbContext entries", logger.LogEntries[0].Message);
+        Assert.Equal(1, logger.Collector.Count);
+        Assert.Equal(LogLevel.Warning, logger.LatestRecord.Level);
+        Assert.Contains("no DbContext entries", logger.LatestRecord.Message);
     }
 
     [Fact(DisplayName = "Issues LogWarning when DbInitializerOption is 'None'")]
@@ -39,7 +40,7 @@ public class DbInitializerTests
         var dbInitializationOption = DbInitializationOption.None;
         var dbInitializer = SetupTestEnvironment(
             new DbInitializerOptions().UseDbContext<DbContext>(dbInitializationOption),
-            out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out TestLogger<DbInitializer> logger);
+            out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out FakeLogger<DbInitializer> logger);
 
         await dbInitializer.StartAsync(default);
 
@@ -47,9 +48,9 @@ public class DbInitializerTests
         dbFacade.Verify(db => db.EnsureCreatedAsync(default), Times.Never());
         dbContext.As<ISeedingContext>().Verify(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>()), Times.Never());
 
-        Assert.Single(logger.LogEntries);
-        Assert.Equal(LogLevel.Warning, logger.LogEntries[0].LogLevel);
-        Assert.Contains("skipping", logger.LogEntries[0].Message);
+        Assert.Equal(1, logger.Collector.Count);
+        Assert.Equal(LogLevel.Warning, logger.LatestRecord.Level);
+        Assert.Contains("skipping", logger.LatestRecord.Message);
     }
 
     [Fact(DisplayName = "Calls MigrateAsync when DbInitializerOption is 'Migrate'")]
@@ -58,7 +59,7 @@ public class DbInitializerTests
         var dbInitializationOption = DbInitializationOption.Migrate;
         var dbInitializer = SetupTestEnvironment(
             new DbInitializerOptions().UseDbContext<DbContext>(dbInitializationOption),
-            out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out TestLogger<DbInitializer> logger);
+            out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out FakeLogger<DbInitializer> logger);
 
         await dbInitializer.StartAsync(default);
 
@@ -66,9 +67,9 @@ public class DbInitializerTests
         dbFacade.Verify(db => db.EnsureCreatedAsync(default), Times.Never());
         dbContext.As<ISeedingContext>().Verify(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>()), Times.Once());
 
-        Assert.Single(logger.LogEntries);
-        Assert.Equal(LogLevel.Information, logger.LogEntries[0].LogLevel);
-        Assert.Contains($"initialized using DbInitializationOption.{dbInitializationOption}", logger.LogEntries[0].Message);
+        Assert.Equal(1, logger.Collector.Count);
+        Assert.Equal(LogLevel.Information, logger.LatestRecord.Level);
+        Assert.Contains($"initialized using DbInitializationOption.{dbInitializationOption}", logger.LatestRecord.Message);
     }
 
     [Fact(DisplayName = "Calls EnsureCreatedAsync when DbInitializerOption is 'EnsureCreated'")]
@@ -77,7 +78,7 @@ public class DbInitializerTests
         var dbInitializationOption = DbInitializationOption.EnsureCreated;
         var dbInitializer = SetupTestEnvironment(
             new DbInitializerOptions().UseDbContext<DbContext>(dbInitializationOption),
-            out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out TestLogger<DbInitializer> logger);
+            out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out FakeLogger<DbInitializer> logger);
 
         await dbInitializer.StartAsync(default);
 
@@ -85,9 +86,9 @@ public class DbInitializerTests
         dbFacade.Verify(db => db.EnsureCreatedAsync(default), Times.Once());
         dbContext.As<ISeedingContext>().Verify(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>()), Times.Once());
 
-        Assert.Single(logger.LogEntries);
-        Assert.Equal(LogLevel.Information, logger.LogEntries[0].LogLevel);
-        Assert.Contains($"initialized using DbInitializationOption.{dbInitializationOption}", logger.LogEntries[0].Message);
+        Assert.Equal(1, logger.Collector.Count);
+        Assert.Equal(LogLevel.Information, logger.LatestRecord.Level);
+        Assert.Contains($"initialized using DbInitializationOption.{dbInitializationOption}", logger.LatestRecord.Message);
     }
 
     [Fact(DisplayName = "Calls SeedDatabaseAsync when DbInitializerOption is 'SeedOnly'")]
@@ -96,7 +97,7 @@ public class DbInitializerTests
         var dbInitializationOption = DbInitializationOption.SeedOnly;
         var dbInitializer = SetupTestEnvironment(
             new DbInitializerOptions().UseDbContext(typeof(DbContext), dbInitializationOption),
-            out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out TestLogger<DbInitializer> logger);
+            out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out FakeLogger<DbInitializer> logger);
 
         await dbInitializer.StartAsync(default);
 
@@ -104,9 +105,9 @@ public class DbInitializerTests
         dbFacade.Verify(db => db.EnsureCreatedAsync(default), Times.Never());
         dbContext.As<ISeedingContext>().Verify(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>()), Times.Once());
 
-        Assert.Single(logger.LogEntries);
-        Assert.Equal(LogLevel.Information, logger.LogEntries[0].LogLevel);
-        Assert.Contains($"initialized using DbInitializationOption.{dbInitializationOption}", logger.LogEntries[0].Message);
+        Assert.Equal(1, logger.Collector.Count);
+        Assert.Equal(LogLevel.Information, logger.LatestRecord.Level);
+        Assert.Contains($"initialized using DbInitializationOption.{dbInitializationOption}", logger.LatestRecord.Message);
     }
 
     [Fact(DisplayName = "Issues LogWarning when same DbContext is specified twice")]
@@ -117,7 +118,7 @@ public class DbInitializerTests
             new DbInitializerOptions()
                 .UseDbContext(typeof(DbContext), dbInitializationOption)
                 .UseDbContext(typeof(DbContext), DbInitializationOption.Migrate),
-            out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out TestLogger<DbInitializer> logger);
+            out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out FakeLogger<DbInitializer> logger);
 
         await dbInitializer.StartAsync(default);
 
@@ -125,9 +126,9 @@ public class DbInitializerTests
         dbFacade.Verify(db => db.EnsureCreatedAsync(default), Times.Never());
         dbContext.As<ISeedingContext>().Verify(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>()), Times.Once());
 
-        Assert.Equal(2, logger.LogEntries.Count);
-        Assert.Equal(LogLevel.Warning, logger.LogEntries[1].LogLevel);
-        Assert.Contains($"already initialized using DbInitializationOption.{dbInitializationOption}", logger.LogEntries[1].Message);
+        Assert.Equal(2, logger.Collector.Count);
+        Assert.Equal(LogLevel.Warning, logger.LatestRecord.Level);
+        Assert.Contains($"already initialized using DbInitializationOption.{dbInitializationOption}", logger.LatestRecord.Message);
     }
 
     [Fact(DisplayName = "Issues LogError when MigrateAsync fails")]
@@ -138,7 +139,7 @@ public class DbInitializerTests
         var dbInitializationOption = DbInitializationOption.Migrate;
         var dbInitializer = SetupTestEnvironment(
             new DbInitializerOptions().UseDbContext<DbContext>(dbInitializationOption),
-            out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out TestLogger<DbInitializer> logger, 
+            out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out FakeLogger<DbInitializer> logger, 
             dbException: expectedException
             );
 
@@ -148,11 +149,11 @@ public class DbInitializerTests
         dbFacade.Verify(db => db.EnsureCreatedAsync(default), Times.Never());
         dbContext.As<ISeedingContext>().Verify(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>()), Times.Never());
 
-        Assert.Single(logger.LogEntries);
-        Assert.Equal(LogLevel.Error, logger.LogEntries[0].LogLevel);
-        Assert.NotNull(logger.LogEntries[0].Exception);
-        Assert.Equal(expectedException.Message, logger.LogEntries[0].Exception.Message);
-        Assert.Contains("Error occurred initializing database", logger.LogEntries[0].Message);
+        Assert.Equal(1, logger.Collector.Count);
+        Assert.Equal(LogLevel.Error, logger.LatestRecord.Level);
+        Assert.NotNull(logger.LatestRecord.Exception);
+        Assert.Equal(expectedException.Message, logger.LatestRecord.Exception.Message);
+        Assert.Contains("Error occurred initializing database", logger.LatestRecord.Message);
     }
 
     [Fact(DisplayName = "Issues LogError when EnsureCreatedAsync fails")]
@@ -163,7 +164,7 @@ public class DbInitializerTests
         var dbInitializationOption = DbInitializationOption.EnsureCreated;
         var dbInitializer = SetupTestEnvironment(
             new DbInitializerOptions().UseDbContext<DbContext>(dbInitializationOption),
-            out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out TestLogger<DbInitializer> logger,
+            out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out FakeLogger<DbInitializer> logger,
             dbException: expectedException
             );
 
@@ -173,11 +174,11 @@ public class DbInitializerTests
         dbFacade.Verify(db => db.EnsureCreatedAsync(default), Times.Once());
         dbContext.As<ISeedingContext>().Verify(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>()), Times.Never());
 
-        Assert.Single(logger.LogEntries);
-        Assert.Equal(LogLevel.Error, logger.LogEntries[0].LogLevel);
-        Assert.NotNull(logger.LogEntries[0].Exception);
-        Assert.Equal(expectedException.Message, logger.LogEntries[0].Exception.Message);
-        Assert.Contains("Error occurred initializing database", logger.LogEntries[0].Message);
+        Assert.Equal(1, logger.Collector.Count);
+        Assert.Equal(LogLevel.Error, logger.LatestRecord.Level);
+        Assert.NotNull(logger.LatestRecord.Exception);
+        Assert.Equal(expectedException.Message, logger.LatestRecord.Exception.Message);
+        Assert.Contains("Error occurred initializing database", logger.LatestRecord.Message);
     }
 
     [Fact(DisplayName = "Issues LogError when SeedDatabaseAsync fails")]
@@ -188,7 +189,7 @@ public class DbInitializerTests
         var dbInitializationOption = DbInitializationOption.EnsureCreated;
         var dbInitializer = SetupTestEnvironment(
             new DbInitializerOptions().UseDbContext<DbContext>(dbInitializationOption),
-            out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out TestLogger<DbInitializer> logger,
+            out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out FakeLogger<DbInitializer> logger,
             seedException: expectedException
             );
 
@@ -198,11 +199,11 @@ public class DbInitializerTests
         dbFacade.Verify(db => db.EnsureCreatedAsync(default), Times.Once());
         dbContext.As<ISeedingContext>().Verify(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>()), Times.Once());
 
-        Assert.Single(logger.LogEntries);
-        Assert.Equal(LogLevel.Error, logger.LogEntries[0].LogLevel);
-        Assert.NotNull(logger.LogEntries[0].Exception);
-        Assert.Equal(expectedException.Message, logger.LogEntries[0].Exception.Message);
-        Assert.Contains("Error occurred seeding database", logger.LogEntries[0].Message);
+        Assert.Equal(1, logger.Collector.Count);
+        Assert.Equal(LogLevel.Error, logger.LatestRecord.Level);
+        Assert.NotNull(logger.LatestRecord.Exception);
+        Assert.Equal(expectedException.Message, logger.LatestRecord.Exception.Message);
+        Assert.Contains("Error occurred seeding database", logger.LatestRecord.Message);
     }
 
 
@@ -213,14 +214,14 @@ public class DbInitializerTests
     /// <param name="dbContextMock">An output parameter containing the DbContext Mock object.</param>
     /// <param name="migratorMock">An output parameter containing the IMigrator Mock object.</param>
     /// <param name="dbFacadeMock">An output parameter containing the DatabaseFacade Mock object.</param>
-    /// <param name="testLogger">An output parameter containing the TestLogger object.</param>
+    /// <param name="fakeLogger">An output parameter containing the FakeLogger object.</param>
     /// <returns>The new DbInitializer instance.</returns>
     private static DbInitializer SetupTestEnvironment(DbInitializerOptions options,  
-        out Mock<DbContext> dbContextMock, out Mock<IMigrator> migratorMock, out Mock<DatabaseFacade> dbFacadeMock, out TestLogger<DbInitializer> testLogger,
+        out Mock<DbContext> dbContextMock, out Mock<IMigrator> migratorMock, out Mock<DatabaseFacade> dbFacadeMock, out FakeLogger<DbInitializer> fakeLogger,
         Exception dbException = null, Exception seedException = null
         )
     {
-        var logger = new TestLogger<DbInitializer>();
+        var logger = new FakeLogger<DbInitializer>();
 
         var migrator = new Mock<IMigrator>();
         if (dbException == null) {
@@ -271,7 +272,7 @@ public class DbInitializerTests
         dbContextMock = dbContext;
         migratorMock = migrator;
         dbFacadeMock = dbFacade;
-        testLogger = logger;
+        fakeLogger = logger;
 
         return new DbInitializer(serviceProvider);
     }
