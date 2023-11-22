@@ -40,10 +40,7 @@ public class DbInitializerOptions : List<DbInitializerOption>
     /// </exception>
     public DbInitializerOptions UseDbContext(Type dbContextType, DbInitializationOption dbInitializationOption)
     {
-        if (dbContextType == null)
-        {
-            throw new ArgumentNullException(nameof(dbContextType));
-        }
+        ArgumentNullException.ThrowIfNull(dbContextType);
 
         if (!typeof(DbContext).IsAssignableFrom(dbContextType))
         {
