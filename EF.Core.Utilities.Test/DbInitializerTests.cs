@@ -1,5 +1,4 @@
 using CRFricke.EF.Core.Utilities;
-using CRFricke.Test.Support.Fakes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -17,10 +16,10 @@ namespace EF.Core.Utilities.Test;
 public class DbInitializerTests
 {
     [Fact(DisplayName = "Issues LogWarning when DbInitializerOptions is empty")]
-    public async void Test01Async()
+    public async Task Test01Async()
     {
         var dbInitializer = SetupTestEnvironment(
-            new DbInitializerOptions(), 
+            [], 
             out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out FakeLogger<DbInitializer> logger);
 
         await dbInitializer.StartAsync(default);
@@ -35,7 +34,7 @@ public class DbInitializerTests
     }
 
     [Fact(DisplayName = "Issues LogWarning when DbInitializerOption is 'None'")]
-    public async void Test02Async()
+    public async Task Test02Async()
     {
         var dbInitializationOption = DbInitializationOption.None;
         var dbInitializer = SetupTestEnvironment(
@@ -54,7 +53,7 @@ public class DbInitializerTests
     }
 
     [Fact(DisplayName = "Calls MigrateAsync when DbInitializerOption is 'Migrate'")]
-    public async void Test03Async()
+    public async Task Test03Async()
     {
         var dbInitializationOption = DbInitializationOption.Migrate;
         var dbInitializer = SetupTestEnvironment(
@@ -73,7 +72,7 @@ public class DbInitializerTests
     }
 
     [Fact(DisplayName = "Calls EnsureCreatedAsync when DbInitializerOption is 'EnsureCreated'")]
-    public async void Test04Async()
+    public async Task Test04Async()
     {
         var dbInitializationOption = DbInitializationOption.EnsureCreated;
         var dbInitializer = SetupTestEnvironment(
@@ -92,7 +91,7 @@ public class DbInitializerTests
     }
 
     [Fact(DisplayName = "Calls SeedDatabaseAsync when DbInitializerOption is 'SeedOnly'")]
-    public async void Test05Async()
+    public async Task Test05Async()
     {
         var dbInitializationOption = DbInitializationOption.SeedOnly;
         var dbInitializer = SetupTestEnvironment(
@@ -111,7 +110,7 @@ public class DbInitializerTests
     }
 
     [Fact(DisplayName = "Issues LogWarning when same DbContext is specified twice")]
-    public async void Test06Async()
+    public async Task Test06Async()
     {
         var dbInitializationOption = DbInitializationOption.SeedOnly;
         var dbInitializer = SetupTestEnvironment(
@@ -132,7 +131,7 @@ public class DbInitializerTests
     }
 
     [Fact(DisplayName = "Issues LogError when MigrateAsync fails")]
-    public async void Test07Async()
+    public async Task Test07Async()
     {
         var expectedException = new Exception("BOOM! Couldn't migrate database.");
 
@@ -157,7 +156,7 @@ public class DbInitializerTests
     }
 
     [Fact(DisplayName = "Issues LogError when EnsureCreatedAsync fails")]
-    public async void Test08Async()
+    public async Task Test08Async()
     {
         var expectedException = new Exception("BOOM! Couldn't create database.");
 
@@ -182,7 +181,7 @@ public class DbInitializerTests
     }
 
     [Fact(DisplayName = "Issues LogError when SeedDatabaseAsync fails")]
-    public async void Test09Async()
+    public async Task Test09Async()
     {
         var expectedException = new Exception("BOOM! Couldn't seed database.");
 
