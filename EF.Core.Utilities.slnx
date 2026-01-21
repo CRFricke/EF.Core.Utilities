@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/Solution Items/.assets/">
+    <File Path="assets/tools.png" />
+  </Folder>
+  <Project Path="EF.Core.Utilities.Test.Web/EF.Core.Utilities.Test.Web.csproj" />
+  <Project Path="EF.Core.Utilities.Test/EF.Core.Utilities.Test.csproj" />
+  <Project Path="EF.Core.Utilities/EF.Core.Utilities.csproj" />
+</Solution>
