@@ -40,7 +40,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\assets\tools.png">
+    <None Include="..\tools.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

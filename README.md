@@ -1,4 +1,5 @@
-﻿[![.NET](https://github.com/CRFricke/EF.Core.Utilities/actions/workflows/dotnet.yml/badge.svg)](https://github.com/CRFricke/EF.Core.Utilities/actions/workflows/dotnet.yml)
+﻿![EF.Core.Utilities](https://raw.githubusercontent.com/CRFricke/EF.Core.Utilities/master/tools.png)
+[![.NET](https://github.com/CRFricke/EF.Core.Utilities/actions/workflows/dotnet.yml/badge.svg)](https://github.com/CRFricke/EF.Core.Utilities/actions/workflows/dotnet.yml)
 
 # EF.Core.Utilities
 
