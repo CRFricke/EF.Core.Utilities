@@ -95,7 +95,7 @@ public class DbInitializerTests
     {
         var dbInitializationOption = DbInitializationOption.SeedOnly;
         var dbInitializer = SetupTestEnvironment(
-            new DbInitializerOptions().UseDbContext(typeof(DbContext), dbInitializationOption),
+            new DbInitializerOptions().UseDbContext<DbContext>(dbInitializationOption),
             out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out FakeLogger<DbInitializer> logger);
 
         await dbInitializer.StartAsync(default);
@@ -115,8 +115,8 @@ public class DbInitializerTests
         var dbInitializationOption = DbInitializationOption.SeedOnly;
         var dbInitializer = SetupTestEnvironment(
             new DbInitializerOptions()
-                .UseDbContext(typeof(DbContext), dbInitializationOption)
-                .UseDbContext(typeof(DbContext), DbInitializationOption.Migrate),
+                .UseDbContext<DbContext>(dbInitializationOption)
+                .UseDbContext<DbContext>(DbInitializationOption.Migrate),
             out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out FakeLogger<DbInitializer> logger);
 
         await dbInitializer.StartAsync(default);
