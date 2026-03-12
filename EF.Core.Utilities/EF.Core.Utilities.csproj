@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <CurrentYear>$([System.DateTime]::Now.ToString(yyyy))</CurrentYear>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <Authors>Chuck Fricke</Authors>
     <Company>Fricke Consulting</Company>
     <Copyright>Copyright © Chuck Fricke 2021</Copyright>
