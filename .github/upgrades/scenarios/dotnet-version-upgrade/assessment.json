@@ -1,0 +1,754 @@
+{
+  "settings": {
+    "components": {
+      "code": true,
+      "binaries": false
+    },
+    "targetId": "net10.0",
+    "targetDisplayName": ".NETCoreApp,Version=v10.0"
+  },
+  "analysisStartTime": "2026-03-12T16:32:30.838189Z",
+  "analysisEndTime": "2026-03-12T16:32:35.1396653Z",
+  "privacyModeHelpUrl": "https://go.microsoft.com/fwlink/?linkid=2270980",
+  "stats": {
+    "summary": {
+      "projects": 3,
+      "issues": 5,
+      "incidents": 24,
+      "effort": 24
+    },
+    "charts": {
+      "severity": {
+        "Mandatory": 3,
+        "Optional": 1,
+        "Potential": 20,
+        "Information": 0
+      },
+      "category": {
+        "NuGet": 12,
+        "Project": 3,
+        "Api": 9
+      }
+    }
+  },
+  "projects": [
+    {
+      "path": "EF.Core.Utilities\\EF.Core.Utilities.csproj",
+      "startingProject": true,
+      "issues": 2,
+      "storyPoints": 3,
+      "properties": {
+        "appName": "EF.Core.Utilities",
+        "projectKind": "ClassLibrary",
+        "frameworks": [
+          "net9.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "numberOfFiles": 7,
+        "numberOfCodeFiles": 7,
+        "linesTotal": 294,
+        "linesOfCode": 294,
+        "totalApiScanned": 225,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "d775f927-4dd4-4e2a-83b1-4346690f5e4e",
+          "ruleId": "NuGet.0002",
+          "projectPath": "EF.Core.Utilities\\EF.Core.Utilities.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.4",
+              "protected": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.4"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities\\EF.Core.Utilities.csproj",
+            "snippet": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.4",
+            "protectedSnippet": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.4",
+            "label": "Microsoft.AspNetCore.Identity.EntityFrameworkCore 9.0.12",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+              "PackageVersion": "9.0.12",
+              "PackageNewVersion": "10.0.4",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "d29ca36e-b950-4e54-9858-fd7f61c4a8f1",
+          "ruleId": "NuGet.0002",
+          "projectPath": "EF.Core.Utilities\\EF.Core.Utilities.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.Extensions.Hosting.Abstractions, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.Extensions.Hosting.Abstractions, and replace with new package Microsoft.Extensions.Hosting.Abstractions 10.0.4",
+              "protected": "Microsoft.Extensions.Hosting.Abstractions, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.Extensions.Hosting.Abstractions, and replace with new package Microsoft.Extensions.Hosting.Abstractions 10.0.4"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities\\EF.Core.Utilities.csproj",
+            "snippet": "Microsoft.Extensions.Hosting.Abstractions, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.Extensions.Hosting.Abstractions, and replace with new package Microsoft.Extensions.Hosting.Abstractions 10.0.4",
+            "protectedSnippet": "Microsoft.Extensions.Hosting.Abstractions, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.Extensions.Hosting.Abstractions, and replace with new package Microsoft.Extensions.Hosting.Abstractions 10.0.4",
+            "label": "Microsoft.Extensions.Hosting.Abstractions 9.0.12",
+            "properties": {
+              "PackageId": "Microsoft.Extensions.Hosting.Abstractions",
+              "PackageVersion": "9.0.12",
+              "PackageNewVersion": "10.0.4",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "6dbb0089-9aa7-48a8-a778-c987331d13a9",
+          "ruleId": "Project.0002",
+          "projectPath": "EF.Core.Utilities\\EF.Core.Utilities.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net9.0\nRecommended target framework: net10.0",
+              "protected": "Current target framework: net9.0\nRecommended target framework: net10.0"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities\\EF.Core.Utilities.csproj",
+            "snippet": "Current target framework: net9.0\nRecommended target framework: net10.0",
+            "protectedSnippet": "Current target framework: net9.0\nRecommended target framework: net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net9.0",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "EF.Core.Utilities.Test\\EF.Core.Utilities.Test.csproj",
+      "startingProject": true,
+      "issues": 3,
+      "storyPoints": 4,
+      "properties": {
+        "appName": "EF.Core.Utilities.Test",
+        "projectKind": "DotNetCoreApp",
+        "frameworks": [
+          "net9.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "numberOfFiles": 3,
+        "numberOfCodeFiles": 1,
+        "linesTotal": 2067,
+        "linesOfCode": 278,
+        "totalApiScanned": 764,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "8bf664e8-ebbd-4e96-9e2b-1eb0171c6448",
+          "ruleId": "NuGet.0002",
+          "projectPath": "EF.Core.Utilities.Test\\EF.Core.Utilities.Test.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.Sqlite, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Sqlite, and replace with new package Microsoft.EntityFrameworkCore.Sqlite 10.0.4",
+              "protected": "Microsoft.EntityFrameworkCore.Sqlite, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Sqlite, and replace with new package Microsoft.EntityFrameworkCore.Sqlite 10.0.4"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities.Test\\EF.Core.Utilities.Test.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.Sqlite, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Sqlite, and replace with new package Microsoft.EntityFrameworkCore.Sqlite 10.0.4",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.Sqlite, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Sqlite, and replace with new package Microsoft.EntityFrameworkCore.Sqlite 10.0.4",
+            "label": "Microsoft.EntityFrameworkCore.Sqlite 9.0.12",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.Sqlite",
+              "PackageVersion": "9.0.12",
+              "PackageNewVersion": "10.0.4",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "c8fdbdbd-82d4-4e04-a459-2f9b40f6c994",
+          "ruleId": "NuGet.0002",
+          "projectPath": "EF.Core.Utilities.Test\\EF.Core.Utilities.Test.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.Extensions.DependencyInjection.Abstractions, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.Extensions.DependencyInjection.Abstractions, and replace with new package Microsoft.Extensions.DependencyInjection.Abstractions 10.0.4",
+              "protected": "Microsoft.Extensions.DependencyInjection.Abstractions, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.Extensions.DependencyInjection.Abstractions, and replace with new package Microsoft.Extensions.DependencyInjection.Abstractions 10.0.4"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities.Test\\EF.Core.Utilities.Test.csproj",
+            "snippet": "Microsoft.Extensions.DependencyInjection.Abstractions, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.Extensions.DependencyInjection.Abstractions, and replace with new package Microsoft.Extensions.DependencyInjection.Abstractions 10.0.4",
+            "protectedSnippet": "Microsoft.Extensions.DependencyInjection.Abstractions, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.Extensions.DependencyInjection.Abstractions, and replace with new package Microsoft.Extensions.DependencyInjection.Abstractions 10.0.4",
+            "label": "Microsoft.Extensions.DependencyInjection.Abstractions 9.0.12",
+            "properties": {
+              "PackageId": "Microsoft.Extensions.DependencyInjection.Abstractions",
+              "PackageVersion": "9.0.12",
+              "PackageNewVersion": "10.0.4",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "23306e2a-116b-41b6-ad8c-d60c312b8cb0",
+          "ruleId": "NuGet.0005",
+          "projectPath": "EF.Core.Utilities.Test\\EF.Core.Utilities.Test.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "xunit, 2.9.3\n\nRecommendation:\n\nThis package will only be updated for security issues. All future feature work has moved onto v3.\n\nGuide for migrating from xUnit.net v2 to v3: https://xunit.net/docs/getting-started/v3/migration\nRemove xunit, and replace with new package xunit, 2.9.3",
+              "protected": "xunit, 2.9.3\n\nRecommendation:\n\nThis package will only be updated for security issues. All future feature work has moved onto v3.\n\nGuide for migrating from xUnit.net v2 to v3: https://xunit.net/docs/getting-started/v3/migration\nRemove xunit, and replace with new package xunit, 2.9.3"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities.Test\\EF.Core.Utilities.Test.csproj",
+            "snippet": "xunit, 2.9.3\n\nRecommendation:\n\nThis package will only be updated for security issues. All future feature work has moved onto v3.\n\nGuide for migrating from xUnit.net v2 to v3: https://xunit.net/docs/getting-started/v3/migration\nRemove xunit, and replace with new package xunit, 2.9.3",
+            "protectedSnippet": "xunit, 2.9.3\n\nRecommendation:\n\nThis package will only be updated for security issues. All future feature work has moved onto v3.\n\nGuide for migrating from xUnit.net v2 to v3: https://xunit.net/docs/getting-started/v3/migration\nRemove xunit, and replace with new package xunit, 2.9.3",
+            "label": "xunit 2.9.3",
+            "properties": {
+              "PackageId": "xunit",
+              "PackageVersion": "2.9.3",
+              "PackageNewVersion": null,
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "022cea7a-d4ce-49c4-b5dd-8cd1d17f6b7b",
+          "ruleId": "Project.0002",
+          "projectPath": "EF.Core.Utilities.Test\\EF.Core.Utilities.Test.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net9.0\nRecommended target framework: net10.0",
+              "protected": "Current target framework: net9.0\nRecommended target framework: net10.0"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities.Test\\EF.Core.Utilities.Test.csproj",
+            "snippet": "Current target framework: net9.0\nRecommended target framework: net10.0",
+            "protectedSnippet": "Current target framework: net9.0\nRecommended target framework: net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net9.0",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+      "startingProject": true,
+      "issues": 4,
+      "storyPoints": 17,
+      "properties": {
+        "appName": "EF.Core.Utilities.Test.Web",
+        "projectKind": "AspNetCore",
+        "frameworks": [
+          "net9.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "numberOfFiles": 33,
+        "numberOfCodeFiles": 28,
+        "linesTotal": 1769,
+        "linesOfCode": 1665,
+        "totalApiScanned": 3184,
+        "minLinesOfCodeToChange": 9,
+        "maxLinesOfCodeToChange": 9
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "86f2e9dd-cad8-4bf2-a5b5-a04b2889bfbe",
+          "ruleId": "NuGet.0002",
+          "projectPath": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore 10.0.4",
+              "protected": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore 10.0.4"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+            "snippet": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore 10.0.4",
+            "protectedSnippet": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore 10.0.4",
+            "label": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore 9.0.12",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore",
+              "PackageVersion": "9.0.12",
+              "PackageNewVersion": "10.0.4",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "3622a422-c38c-4ab9-8b90-9dd50aed8835",
+          "ruleId": "NuGet.0002",
+          "projectPath": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.4",
+              "protected": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.4"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+            "snippet": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.4",
+            "protectedSnippet": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.4",
+            "label": "Microsoft.AspNetCore.Identity.EntityFrameworkCore 9.0.12",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+              "PackageVersion": "9.0.12",
+              "PackageNewVersion": "10.0.4",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "baf5d614-6808-4b67-baeb-0c07c0c973ed",
+          "ruleId": "NuGet.0002",
+          "projectPath": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.AspNetCore.Identity.UI, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.UI, and replace with new package Microsoft.AspNetCore.Identity.UI 10.0.4",
+              "protected": "Microsoft.AspNetCore.Identity.UI, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.UI, and replace with new package Microsoft.AspNetCore.Identity.UI 10.0.4"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+            "snippet": "Microsoft.AspNetCore.Identity.UI, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.UI, and replace with new package Microsoft.AspNetCore.Identity.UI 10.0.4",
+            "protectedSnippet": "Microsoft.AspNetCore.Identity.UI, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.UI, and replace with new package Microsoft.AspNetCore.Identity.UI 10.0.4",
+            "label": "Microsoft.AspNetCore.Identity.UI 9.0.12",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.UI",
+              "PackageVersion": "9.0.12",
+              "PackageNewVersion": "10.0.4",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "a6abb00d-90a8-4872-aef2-2bfb7c484b07",
+          "ruleId": "NuGet.0002",
+          "projectPath": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.Sqlite, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Sqlite, and replace with new package Microsoft.EntityFrameworkCore.Sqlite 10.0.4",
+              "protected": "Microsoft.EntityFrameworkCore.Sqlite, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Sqlite, and replace with new package Microsoft.EntityFrameworkCore.Sqlite 10.0.4"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.Sqlite, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Sqlite, and replace with new package Microsoft.EntityFrameworkCore.Sqlite 10.0.4",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.Sqlite, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Sqlite, and replace with new package Microsoft.EntityFrameworkCore.Sqlite 10.0.4",
+            "label": "Microsoft.EntityFrameworkCore.Sqlite 9.0.12",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.Sqlite",
+              "PackageVersion": "9.0.12",
+              "PackageNewVersion": "10.0.4",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "cd88259f-9bba-4df3-8096-075f553724aa",
+          "ruleId": "NuGet.0002",
+          "projectPath": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.SqlServer, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.4",
+              "protected": "Microsoft.EntityFrameworkCore.SqlServer, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.4"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.SqlServer, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.4",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.SqlServer, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.4",
+            "label": "Microsoft.EntityFrameworkCore.SqlServer 9.0.12",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.SqlServer",
+              "PackageVersion": "9.0.12",
+              "PackageNewVersion": "10.0.4",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "ac66a623-f5a3-4981-bac3-f8d20b91ecdd",
+          "ruleId": "NuGet.0002",
+          "projectPath": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.Tools, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Tools, and replace with new package Microsoft.EntityFrameworkCore.Tools 10.0.4",
+              "protected": "Microsoft.EntityFrameworkCore.Tools, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Tools, and replace with new package Microsoft.EntityFrameworkCore.Tools 10.0.4"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.Tools, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Tools, and replace with new package Microsoft.EntityFrameworkCore.Tools 10.0.4",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.Tools, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Tools, and replace with new package Microsoft.EntityFrameworkCore.Tools 10.0.4",
+            "label": "Microsoft.EntityFrameworkCore.Tools 9.0.12",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.Tools",
+              "PackageVersion": "9.0.12",
+              "PackageNewVersion": "10.0.4",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "b1dc2122-3f9a-42c8-a2f1-de76a325edb1",
+          "ruleId": "NuGet.0002",
+          "projectPath": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation, and replace with new package Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation 10.0.4",
+              "protected": "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation, and replace with new package Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation 10.0.4"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+            "snippet": "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation, and replace with new package Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation 10.0.4",
+            "protectedSnippet": "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation, 9.0.12\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation, and replace with new package Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation 10.0.4",
+            "label": "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation 9.0.12",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation",
+              "PackageVersion": "9.0.12",
+              "PackageNewVersion": "10.0.4",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "e8e05e1f-6396-43c5-ba7a-6efe0259a8c0",
+          "ruleId": "Project.0002",
+          "projectPath": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net9.0\nRecommended target framework: net10.0",
+              "protected": "Current target framework: net9.0\nRecommended target framework: net10.0"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+            "snippet": "Current target framework: net9.0\nRecommended target framework: net10.0",
+            "protectedSnippet": "Current target framework: net9.0\nRecommended target framework: net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net9.0",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        },
+        {
+          "incidentId": "26f20e7b-f52f-4d59-866d-b5c4a91b2143",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Identity.UI, 8.0.6. Add package reference to Microsoft.AspNetCore.Identity.UI, 8.0.6",
+          "projectPath": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "services.AddDefaultIdentity\u003CSecurityUser\u003E(options =\u003E options.SignIn.RequireConfirmedAccount = true)\r\n                    .AddRoles\u003CSecurityRole\u003E()\r\n                    .AddEntityFrameworkStores\u003CSecurityDbContext\u003E();",
+              "protected": "T:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities.Test.Web\\Areas\\Identity\\IdentityHostingStartup.cs",
+            "snippet": "services.AddDefaultIdentity\u003CSecurityUser\u003E(options =\u003E options.SignIn.RequireConfirmedAccount = true)\r\n                    .AddRoles\u003CSecurityRole\u003E()\r\n                    .AddEntityFrameworkStores\u003CSecurityDbContext\u003E();",
+            "protectedSnippet": "T:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions",
+            "label": "T:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.UI",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 25,
+            "column": 16
+          }
+        },
+        {
+          "incidentId": "e352a98c-ed69-417d-8d60-a34ec60bfda3",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Identity.UI, 8.0.6. Add package reference to Microsoft.AspNetCore.Identity.UI, 8.0.6",
+          "projectPath": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "services.AddDefaultIdentity\u003CSecurityUser\u003E(options =\u003E options.SignIn.RequireConfirmedAccount = true)\r\n                    .AddRoles\u003CSecurityRole\u003E()\r\n                    .AddEntityFrameworkStores\u003CSecurityDbContext\u003E();",
+              "protected": "M:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity\u0060\u00601(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Identity.IdentityOptions})"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities.Test.Web\\Areas\\Identity\\IdentityHostingStartup.cs",
+            "snippet": "services.AddDefaultIdentity\u003CSecurityUser\u003E(options =\u003E options.SignIn.RequireConfirmedAccount = true)\r\n                    .AddRoles\u003CSecurityRole\u003E()\r\n                    .AddEntityFrameworkStores\u003CSecurityDbContext\u003E();",
+            "protectedSnippet": "M:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity\u0060\u00601(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Identity.IdentityOptions})",
+            "label": "M:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionUIExtensions.AddDefaultIdentity\u0060\u00601(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Identity.IdentityOptions})",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.UI",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 25,
+            "column": 16
+          }
+        },
+        {
+          "incidentId": "8602b6d0-b956-45d8-a52e-aa4c20ac13cb",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6. Add package reference to Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6",
+          "projectPath": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "services.AddDefaultIdentity\u003CSecurityUser\u003E(options =\u003E options.SignIn.RequireConfirmedAccount = true)\r\n                    .AddRoles\u003CSecurityRole\u003E()\r\n                    .AddEntityFrameworkStores\u003CSecurityDbContext\u003E();",
+              "protected": "T:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities.Test.Web\\Areas\\Identity\\IdentityHostingStartup.cs",
+            "snippet": "services.AddDefaultIdentity\u003CSecurityUser\u003E(options =\u003E options.SignIn.RequireConfirmedAccount = true)\r\n                    .AddRoles\u003CSecurityRole\u003E()\r\n                    .AddEntityFrameworkStores\u003CSecurityDbContext\u003E();",
+            "protectedSnippet": "T:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions",
+            "label": "T:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 25,
+            "column": 16
+          }
+        },
+        {
+          "incidentId": "f035ed69-bfbc-4c0b-aae2-66295d2481eb",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6. Add package reference to Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6",
+          "projectPath": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "services.AddDefaultIdentity\u003CSecurityUser\u003E(options =\u003E options.SignIn.RequireConfirmedAccount = true)\r\n                    .AddRoles\u003CSecurityRole\u003E()\r\n                    .AddEntityFrameworkStores\u003CSecurityDbContext\u003E();",
+              "protected": "M:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores\u0060\u00601(Microsoft.AspNetCore.Identity.IdentityBuilder)"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities.Test.Web\\Areas\\Identity\\IdentityHostingStartup.cs",
+            "snippet": "services.AddDefaultIdentity\u003CSecurityUser\u003E(options =\u003E options.SignIn.RequireConfirmedAccount = true)\r\n                    .AddRoles\u003CSecurityRole\u003E()\r\n                    .AddEntityFrameworkStores\u003CSecurityDbContext\u003E();",
+            "protectedSnippet": "M:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores\u0060\u00601(Microsoft.AspNetCore.Identity.IdentityBuilder)",
+            "label": "M:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores\u0060\u00601(Microsoft.AspNetCore.Identity.IdentityBuilder)",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 25,
+            "column": 16
+          }
+        },
+        {
+          "incidentId": "3c3d893f-39ca-4fd2-aeed-837292b26a3e",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: Exception diagnostics are suppressed when IExceptionHandler.TryHandleAsync returns true ",
+          "projectPath": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "app.UseExceptionHandler(\u0022/Error\u0022);",
+              "protected": "M:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.String)"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities.Test.Web\\Program.cs",
+            "snippet": "app.UseExceptionHandler(\u0022/Error\u0022);",
+            "protectedSnippet": "M:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.String)",
+            "label": "M:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.String)",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/aspnet-core/10/exception-handler-diagnostics-suppressed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 31,
+            "column": 4
+          }
+        },
+        {
+          "incidentId": "ab1a31a0-d7b0-4c22-9c45-16d1a7898e05",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 8.0.6. Add package reference to Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 8.0.6",
+          "projectPath": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "app.UseMigrationsEndPoint();",
+              "protected": "T:Microsoft.AspNetCore.Builder.MigrationsEndPointExtensions"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities.Test.Web\\Program.cs",
+            "snippet": "app.UseMigrationsEndPoint();",
+            "protectedSnippet": "T:Microsoft.AspNetCore.Builder.MigrationsEndPointExtensions",
+            "label": "T:Microsoft.AspNetCore.Builder.MigrationsEndPointExtensions",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 27,
+            "column": 4
+          }
+        },
+        {
+          "incidentId": "aa8208f8-71b1-4cc0-b903-6da7dc60fd8e",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 8.0.6. Add package reference to Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 8.0.6",
+          "projectPath": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "app.UseMigrationsEndPoint();",
+              "protected": "M:Microsoft.AspNetCore.Builder.MigrationsEndPointExtensions.UseMigrationsEndPoint(Microsoft.AspNetCore.Builder.IApplicationBuilder)"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities.Test.Web\\Program.cs",
+            "snippet": "app.UseMigrationsEndPoint();",
+            "protectedSnippet": "M:Microsoft.AspNetCore.Builder.MigrationsEndPointExtensions.UseMigrationsEndPoint(Microsoft.AspNetCore.Builder.IApplicationBuilder)",
+            "label": "M:Microsoft.AspNetCore.Builder.MigrationsEndPointExtensions.UseMigrationsEndPoint(Microsoft.AspNetCore.Builder.IApplicationBuilder)",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 27,
+            "column": 4
+          }
+        },
+        {
+          "incidentId": "c505d8ad-b18a-4e16-89ef-8628580ad479",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 8.0.6. Add package reference to Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 8.0.6",
+          "projectPath": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "builder.Services\r\n    .AddDbContext\u003CApplicationDbContext\u003E(options =\u003E options.UseSqlite(connectionString))\r\n    .AddDatabaseDeveloperPageExceptionFilter()\r\n    .AddDbInitializer(options =\u003E\r\n        options.UseDbContext\u003CApplicationDbContext\u003E(DbInitializationOption.Migrate)\r\n        );",
+              "protected": "T:Microsoft.Extensions.DependencyInjection.DatabaseDeveloperPageExceptionFilterServiceExtensions"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities.Test.Web\\Program.cs",
+            "snippet": "builder.Services\r\n    .AddDbContext\u003CApplicationDbContext\u003E(options =\u003E options.UseSqlite(connectionString))\r\n    .AddDatabaseDeveloperPageExceptionFilter()\r\n    .AddDbInitializer(options =\u003E\r\n        options.UseDbContext\u003CApplicationDbContext\u003E(DbInitializationOption.Migrate)\r\n        );",
+            "protectedSnippet": "T:Microsoft.Extensions.DependencyInjection.DatabaseDeveloperPageExceptionFilterServiceExtensions",
+            "label": "T:Microsoft.Extensions.DependencyInjection.DatabaseDeveloperPageExceptionFilterServiceExtensions",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 12,
+            "column": 0
+          }
+        },
+        {
+          "incidentId": "c97605a5-f949-45cd-b613-295a5e514216",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 8.0.6. Add package reference to Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore, 8.0.6",
+          "projectPath": "EF.Core.Utilities.Test.Web\\EF.Core.Utilities.Test.Web.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "builder.Services\r\n    .AddDbContext\u003CApplicationDbContext\u003E(options =\u003E options.UseSqlite(connectionString))\r\n    .AddDatabaseDeveloperPageExceptionFilter()\r\n    .AddDbInitializer(options =\u003E\r\n        options.UseDbContext\u003CApplicationDbContext\u003E(DbInitializationOption.Migrate)\r\n        );",
+              "protected": "M:Microsoft.Extensions.DependencyInjection.DatabaseDeveloperPageExceptionFilterServiceExtensions.AddDatabaseDeveloperPageExceptionFilter(Microsoft.Extensions.DependencyInjection.IServiceCollection)"
+            },
+            "kind": "File",
+            "path": "EF.Core.Utilities.Test.Web\\Program.cs",
+            "snippet": "builder.Services\r\n    .AddDbContext\u003CApplicationDbContext\u003E(options =\u003E options.UseSqlite(connectionString))\r\n    .AddDatabaseDeveloperPageExceptionFilter()\r\n    .AddDbInitializer(options =\u003E\r\n        options.UseDbContext\u003CApplicationDbContext\u003E(DbInitializationOption.Migrate)\r\n        );",
+            "protectedSnippet": "M:Microsoft.Extensions.DependencyInjection.DatabaseDeveloperPageExceptionFilterServiceExtensions.AddDatabaseDeveloperPageExceptionFilter(Microsoft.Extensions.DependencyInjection.IServiceCollection)",
+            "label": "M:Microsoft.Extensions.DependencyInjection.DatabaseDeveloperPageExceptionFilterServiceExtensions.AddDatabaseDeveloperPageExceptionFilter(Microsoft.Extensions.DependencyInjection.IServiceCollection)",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 12,
+            "column": 0
+          }
+        }
+      ],
+      "features": []
+    }
+  ],
+  "rules": {
+    "NuGet.0002": {
+      "id": "NuGet.0002",
+      "isFeature": false,
+      "description": "NuGet package upgrade is recommended for selected target framework.\n\nStandard .NET packages are recommended to have versions matching version of .NET that project targets.\n\nSome other packages also are known to work better for selected target frameworks.",
+      "label": "NuGet package upgrade is recommended",
+      "severity": "Potential",
+      "effort": 1,
+      "links": [
+        {
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262530",
+          "isCustom": false
+        }
+      ]
+    },
+    "Project.0002": {
+      "id": "Project.0002",
+      "isFeature": false,
+      "description": "Project\u0027s target framework(s) needs to be changed to the new target framework that you selected for this upgrade.\n\nDuring upgrade target framework will be adjusted to corresponding platform when applicable. In some cases project would result in multiple target frameworks after the upgrade if it was using features that now have their own platforms in modern .NET frameworks (windows, iOS, Android etc).",
+      "label": "Project\u0027s target framework(s) needs to be changed",
+      "severity": "Mandatory",
+      "effort": 1,
+      "links": [
+        {
+          "title": "Overview of porting from .NET Framework to .NET",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265227",
+          "isCustom": false
+        },
+        {
+          "title": ".NET project SDKs",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265226",
+          "isCustom": false
+        }
+      ]
+    },
+    "NuGet.0005": {
+      "id": "NuGet.0005",
+      "isFeature": false,
+      "description": "NuGet package is deprecated.\n\nGo to its documentation and if there is a guidance for replacement of functionality provided by this package.",
+      "label": "NuGet package is deprecated",
+      "severity": "Optional",
+      "effort": 1,
+      "links": [
+        {
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262531",
+          "isCustom": false
+        }
+      ]
+    },
+    "Api.0002": {
+      "id": "Api.0002",
+      "isFeature": false,
+      "description": "API is source incompatible for selected .NET version: requires code changes to compile successfully when targeting a new version, such as removing obsolete APIs or changing method signatures.",
+      "label": "Source incompatible for selected .NET version",
+      "severity": "Potential",
+      "effort": 1,
+      "links": [
+        {
+          "title": "Breaking changes in .NET",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262679",
+          "isCustom": false
+        }
+      ]
+    },
+    "Api.0003": {
+      "id": "Api.0003",
+      "isFeature": false,
+      "description": "API has a behavioral change in selected .NET version: code and binaries may behave differently at runtime without needing recompilation, but the new behavior might be undesirable and require updates.",
+      "label": "Behavioral change in selected .NET version",
+      "severity": "Potential",
+      "effort": 1
+    }
+  }
+}
