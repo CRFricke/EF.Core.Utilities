@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <AssemblyName>CRFricke.$(MSBuildProjectName)</AssemblyName>
     <RootNamespace>CRFricke.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
@@ -10,9 +10,13 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <CurrentYear>$([System.DateTime]::Now.ToString(yyyy))</CurrentYear>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <Authors>Chuck Fricke</Authors>
     <Company>Fricke Consulting</Company>
-    <Copyright>Copyright © Chuck Fricke 2021</Copyright>
+    <Copyright>Copyright © Chuck Fricke $(CurrentYear)</Copyright>
     <Description>Provides utilities for use with Entity Framework Core.</Description>
     <PackageIcon>tools.png</PackageIcon>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
