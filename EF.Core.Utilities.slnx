@@ -1,4 +1,14 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="global.json" />
+    <File Path="nuget.config" />
+  </Folder>
+  <Folder Name="/Solution Items/.github/" />
+  <Folder Name="/Solution Items/.github/workflows/">
+    <File Path=".github/workflows/dotnet.yml" />
+    <File Path=".github/workflows/release.yml" />
+    <File Path=".github/workflows/tag.yml" />
+  </Folder>
   <Project Path="EF.Core.Utilities.Test.Web/EF.Core.Utilities.Test.Web.csproj" />
   <Project Path="EF.Core.Utilities.Test/EF.Core.Utilities.Test.csproj" />
   <Project Path="EF.Core.Utilities/EF.Core.Utilities.csproj" />
