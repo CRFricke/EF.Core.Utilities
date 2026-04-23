@@ -7,14 +7,18 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Testing;
 using Microsoft.Extensions.Options;
 using Moq;
-using System;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace EF.Core.Utilities.Test;
 
-public class DbInitializerTests
+public class DbInitializerTests : IClassFixture<WebAppFactory>
 {
+    private readonly WebAppFactory _webAppFactory;
+
+    public DbInitializerTests(WebAppFactory webAppFactory)
+    {
+        _webAppFactory = webAppFactory;
+    }
+
     [Fact(DisplayName = "Issues LogWarning when DbInitializerOptions is empty")]
     public async Task Test01Async()
     {
@@ -22,10 +26,10 @@ public class DbInitializerTests
             [], 
             out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out FakeLogger<DbInitializer> logger);
 
-        await dbInitializer.StartAsync(default);
+        await dbInitializer.StartAsync(TestContext.Current.CancellationToken);
 
-        migrator.Verify(m => m.MigrateAsync(null, default), Times.Never());
-        dbFacade.Verify(db => db.EnsureCreatedAsync(default), Times.Never());
+        migrator.Verify(m => m.MigrateAsync(null, It.IsAny<CancellationToken>()), Times.Never());
+        dbFacade.Verify(db => db.EnsureCreatedAsync(It.IsAny<CancellationToken>()), Times.Never());
         dbContext.As<ISeedingContext>().Verify(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>()), Times.Never());
 
         Assert.Equal(1, logger.Collector.Count);
@@ -41,10 +45,10 @@ public class DbInitializerTests
             new DbInitializerOptions().UseDbContext<DbContext>(dbInitializationOption),
             out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out FakeLogger<DbInitializer> logger);
 
-        await dbInitializer.StartAsync(default);
+        await dbInitializer.StartAsync(TestContext.Current.CancellationToken);
 
-        migrator.Verify(m => m.MigrateAsync(null, default), Times.Never());
-        dbFacade.Verify(db => db.EnsureCreatedAsync(default), Times.Never());
+        migrator.Verify(m => m.MigrateAsync(null, It.IsAny<CancellationToken>()), Times.Never());
+        dbFacade.Verify(db => db.EnsureCreatedAsync(It.IsAny<CancellationToken>()), Times.Never());
         dbContext.As<ISeedingContext>().Verify(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>()), Times.Never());
 
         Assert.Equal(1, logger.Collector.Count);
@@ -60,10 +64,10 @@ public class DbInitializerTests
             new DbInitializerOptions().UseDbContext<DbContext>(dbInitializationOption),
             out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out FakeLogger<DbInitializer> logger);
 
-        await dbInitializer.StartAsync(default);
+        await dbInitializer.StartAsync(TestContext.Current.CancellationToken);
 
-        migrator.Verify(m => m.MigrateAsync(null, default), Times.Once());
-        dbFacade.Verify(db => db.EnsureCreatedAsync(default), Times.Never());
+        migrator.Verify(m => m.MigrateAsync(null, It.IsAny<CancellationToken>()), Times.Once());
+        dbFacade.Verify(db => db.EnsureCreatedAsync(It.IsAny<CancellationToken>()), Times.Never());
         dbContext.As<ISeedingContext>().Verify(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>()), Times.Once());
 
         Assert.Equal(1, logger.Collector.Count);
@@ -79,10 +83,10 @@ public class DbInitializerTests
             new DbInitializerOptions().UseDbContext<DbContext>(dbInitializationOption),
             out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out FakeLogger<DbInitializer> logger);
 
-        await dbInitializer.StartAsync(default);
+        await dbInitializer.StartAsync(TestContext.Current.CancellationToken);
 
-        migrator.Verify(m => m.MigrateAsync(null, default), Times.Never());
-        dbFacade.Verify(db => db.EnsureCreatedAsync(default), Times.Once());
+        migrator.Verify(m => m.MigrateAsync(null, It.IsAny<CancellationToken>()), Times.Never());
+        dbFacade.Verify(db => db.EnsureCreatedAsync(It.IsAny<CancellationToken>()), Times.Once());
         dbContext.As<ISeedingContext>().Verify(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>()), Times.Once());
 
         Assert.Equal(1, logger.Collector.Count);
@@ -98,10 +102,10 @@ public class DbInitializerTests
             new DbInitializerOptions().UseDbContext<DbContext>(dbInitializationOption),
             out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out FakeLogger<DbInitializer> logger);
 
-        await dbInitializer.StartAsync(default);
+        await dbInitializer.StartAsync(TestContext.Current.CancellationToken);
 
-        migrator.Verify(m => m.MigrateAsync(null, default), Times.Never());
-        dbFacade.Verify(db => db.EnsureCreatedAsync(default), Times.Never());
+        migrator.Verify(m => m.MigrateAsync(null, It.IsAny<CancellationToken>()), Times.Never());
+        dbFacade.Verify(db => db.EnsureCreatedAsync(It.IsAny<CancellationToken>()), Times.Never());
         dbContext.As<ISeedingContext>().Verify(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>()), Times.Once());
 
         Assert.Equal(1, logger.Collector.Count);
@@ -119,10 +123,10 @@ public class DbInitializerTests
                 .UseDbContext<DbContext>(DbInitializationOption.Migrate),
             out Mock<DbContext> dbContext, out Mock<IMigrator> migrator, out Mock<DatabaseFacade> dbFacade, out FakeLogger<DbInitializer> logger);
 
-        await dbInitializer.StartAsync(default);
+        await dbInitializer.StartAsync(TestContext.Current.CancellationToken);
 
-        migrator.Verify(m => m.MigrateAsync(null, default), Times.Never());
-        dbFacade.Verify(db => db.EnsureCreatedAsync(default), Times.Never());
+        migrator.Verify(m => m.MigrateAsync(null, It.IsAny<CancellationToken>()), Times.Never());
+        dbFacade.Verify(db => db.EnsureCreatedAsync(It.IsAny<CancellationToken>()), Times.Never());
         dbContext.As<ISeedingContext>().Verify(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>()), Times.Once());
 
         Assert.Equal(2, logger.Collector.Count);
@@ -142,10 +146,10 @@ public class DbInitializerTests
             dbException: expectedException
             );
 
-        await dbInitializer.StartAsync(default);
+        await dbInitializer.StartAsync(TestContext.Current.CancellationToken);
 
-        migrator.Verify(m => m.MigrateAsync(null, default), Times.Once());
-        dbFacade.Verify(db => db.EnsureCreatedAsync(default), Times.Never());
+        migrator.Verify(m => m.MigrateAsync(null, It.IsAny<CancellationToken>()), Times.Once());
+        dbFacade.Verify(db => db.EnsureCreatedAsync(It.IsAny<CancellationToken>()), Times.Never());
         dbContext.As<ISeedingContext>().Verify(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>()), Times.Never());
 
         Assert.Equal(1, logger.Collector.Count);
@@ -167,10 +171,10 @@ public class DbInitializerTests
             dbException: expectedException
             );
 
-        await dbInitializer.StartAsync(default);
+        await dbInitializer.StartAsync(TestContext.Current.CancellationToken);
 
-        migrator.Verify(m => m.MigrateAsync(null, default), Times.Never());
-        dbFacade.Verify(db => db.EnsureCreatedAsync(default), Times.Once());
+        migrator.Verify(m => m.MigrateAsync(null, It.IsAny<CancellationToken>()), Times.Never());
+        dbFacade.Verify(db => db.EnsureCreatedAsync(It.IsAny<CancellationToken>()), Times.Once());
         dbContext.As<ISeedingContext>().Verify(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>()), Times.Never());
 
         Assert.Equal(1, logger.Collector.Count);
@@ -192,10 +196,10 @@ public class DbInitializerTests
             seedException: expectedException
             );
 
-        await dbInitializer.StartAsync(default);
+        await dbInitializer.StartAsync(TestContext.Current.CancellationToken);
 
-        migrator.Verify(m => m.MigrateAsync(null, default), Times.Never());
-        dbFacade.Verify(db => db.EnsureCreatedAsync(default), Times.Once());
+        migrator.Verify(m => m.MigrateAsync(null, It.IsAny<CancellationToken>()), Times.Never());
+        dbFacade.Verify(db => db.EnsureCreatedAsync(It.IsAny<CancellationToken>()), Times.Once());
         dbContext.As<ISeedingContext>().Verify(sc => sc.SeedDatabaseAsync(It.IsAny<IServiceProvider>()), Times.Once());
 
         Assert.Equal(1, logger.Collector.Count);
@@ -217,18 +221,18 @@ public class DbInitializerTests
     /// <returns>The new DbInitializer instance.</returns>
     private static DbInitializer SetupTestEnvironment(DbInitializerOptions options,  
         out Mock<DbContext> dbContextMock, out Mock<IMigrator> migratorMock, out Mock<DatabaseFacade> dbFacadeMock, out FakeLogger<DbInitializer> fakeLogger,
-        Exception dbException = null, Exception seedException = null
+        Exception dbException = null!, Exception seedException = null!
         )
     {
         var logger = new FakeLogger<DbInitializer>();
 
         var migrator = new Mock<IMigrator>();
         if (dbException == null) {
-            migrator.Setup(m => m.MigrateAsync(null, default)).Returns(Task.CompletedTask);
+            migrator.Setup(m => m.MigrateAsync(null, It.IsAny<CancellationToken>())).Returns(Task.CompletedTask);
         } 
         else {
-            migrator.Setup(m => m.MigrateAsync(null, default)).Throws(dbException);
-        } 
+            migrator.Setup(m => m.MigrateAsync(null, It.IsAny<CancellationToken>())).Throws(dbException);
+        }
 
         var dbContext = new Mock<DbContext>();
         dbContext.As<IInfrastructure<IServiceProvider>>().Setup(sp => sp.Instance).Returns(
@@ -244,17 +248,17 @@ public class DbInitializerTests
 
         var dbFacade = new Mock<DatabaseFacade>(dbContext.Object);
         if (dbException == null) {
-            dbFacade.Setup(db => db.EnsureCreatedAsync(default)).Returns(Task.FromResult(true));
+            dbFacade.Setup(db => db.EnsureCreatedAsync(It.IsAny<CancellationToken>())).Returns(Task.FromResult(true));
         }
         else {
-            dbFacade.Setup(db => db.EnsureCreatedAsync(default)).Throws(dbException);
+            dbFacade.Setup(db => db.EnsureCreatedAsync(It.IsAny<CancellationToken>())).Throws(dbException);
         }
 
         dbContext.Setup(c => c.Database).Returns(dbFacade.Object);
 
         var scopedProvider = Mock.Of<IServiceProvider>(
             sp => sp.GetService(typeof(ILoggerFactory)) ==
-                Mock.Of<ILoggerFactory>(lf => lf.CreateLogger(typeof(DbInitializer).FullName) == logger) &&
+                Mock.Of<ILoggerFactory>(lf => lf.CreateLogger(typeof(DbInitializer).FullName!) == logger) &&
             sp.GetService(typeof(IOptions<DbInitializerOptions>)) ==
                 Mock.Of<IOptions<DbInitializerOptions>>(o => o.Value == options) &&
             sp.GetService(typeof(DbContext)) == dbContext.Object

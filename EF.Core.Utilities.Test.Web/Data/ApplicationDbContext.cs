@@ -10,8 +10,16 @@ namespace EF.Core.Utilities.Test.Web.Data
 {
     public class ApplicationDbContext : DbContext, ISeedingContext
     {
+        /// <summary>
+        /// Used for integration testing with an in-memory database provider. 
+        /// Do not use this constructor in production code.
+        /// </summary>
+        public ApplicationDbContext()
+        { }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
