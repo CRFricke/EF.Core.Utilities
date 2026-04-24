@@ -3,13 +3,18 @@ name: .NET
 on:
   push:
     branches: ['**']
-    paths-ignore: ['**/*.md']
+    paths-ignore: ['**/*.md', '**/tag.yml', '**/release.yml']
+
+env:
+  BUILD_CONFIG: 'Release'
+  ARTIFACTS_FOLDER: ${{ github.workspace }}/Artifacts
+  DOTNET_VERSION: '10.0.x'
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  TAG_PREFIX: 'v10'
 
 jobs:
   build:
-
-    env:
-      BUILD_CONFIG: 'Release'
 
     runs-on: ubuntu-latest
 
@@ -24,7 +29,7 @@ jobs:
       shell: pwsh
       env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG_PREFIX: 'v10'
+          TAG_PREFIX: ${{ env.TAG_PREFIX }}
       run: |
         Get-VersionVariables
         Set-ActionVariable "BUILD_VERSION" "$Tag_Version"
@@ -33,7 +38,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v5
       with:
-        dotnet-version: 10.0.x
+        dotnet-version: ${{ env.DOTNET_VERSION }}
         source-url: https://nuget.pkg.github.com/CRFricke/index.json
         owner: CRFricke
       env:
@@ -46,4 +51,61 @@ jobs:
       run: dotnet build --configuration $BUILD_CONFIG --no-restore /p:Version=$BUILD_VERSION
 
     - name: Test
-      run: dotnet test --configuration $BUILD_CONFIG --no-build --verbosity normal
+      run: |
+        dotnet test --configuration $BUILD_CONFIG --no-build --verbosity normal \
+          --coverlet --coverlet-output-format cobertura \
+          --coverlet-include '[CRFricke.EF.Core.Utilities]*' 
+
+    - name: Generate Code Coverage Summary
+      uses: irongut/CodeCoverageSummary@v1.3.0
+      with:
+        filename: '**/TestResults/coverage.cobertura.*.xml'
+        badge: true
+        fail_below_min: true
+        format: markdown
+        hide_branch_rate: false
+        hide_complexity: true
+        indicators: true
+        output: both
+        thresholds: '50 75'
+
+    - name: Run security scan
+      shell: pwsh
+      run: |
+        $filePath = "SecurityScan.log"
+        $searchText = "has the following vulnerable packages"
+        dotnet list package --no-restore --vulnerable --include-transitive > $filePath
+        $matches = Select-String -Path $filePath -Pattern $searchText
+        if ($matches) {
+           cat $filePath
+           Write-ActionWarning "Vulnerable packages detected."
+        }
+
+    - name: Upload Artifacts
+      if: github.event_name == 'pull_request'
+      uses: actions/upload-artifact@v7
+      with:
+        name: code-coverage-results
+        path: code-coverage-results.md
+        retention-days: 1
+
+  update-pr:
+    if: github.event_name == 'pull_request'
+    needs: [build]
+    permissions:
+      pull-requests: write
+      contents: read
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: code-coverage-results
+          path: ${{ env.ARTIFACTS_FOLDER }}
+
+      - name: Add Coverage PR Comment
+        uses: marocchino/sticky-pull-request-comment@v3
+        with:
+          recreate: true
+          path: ${{ env.ARTIFACTS_FOLDER }}/code-coverage-results.md
