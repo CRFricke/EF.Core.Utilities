@@ -5,6 +5,9 @@ on:
     branches: ['**']
     paths-ignore: ['**/*.md', '**/tag.yml', '**/release.yml']
 
+  pull_request:
+    branches: [ master ]
+
 env:
   BUILD_CONFIG: 'Release'
   ARTIFACTS_FOLDER: ${{ github.workspace }}/Artifacts
