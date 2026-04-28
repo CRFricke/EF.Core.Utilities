@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿#pragma warning disable CA1515 // Consider making public types internal
 
 namespace EF.Core.Utilities.Test.Web.Data
 {
@@ -8,11 +8,13 @@ namespace EF.Core.Utilities.Test.Web.Data
 
         public virtual int CustomerId { get; set; }
 
-        public ICollection<Item> Items { get; } = new List<Item>();
+        public ICollection<Item> Items { get; } = [];
 
 
         public Order SetItems(params string[] itemNames)
         {
+            ArgumentNullException.ThrowIfNull(itemNames);
+
             Items.Clear();
 
             foreach (var itemName in itemNames)

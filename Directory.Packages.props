@@ -20,7 +20,7 @@
 
 	<!-- EF.Core.Utilities.Test packages -->
 	<PackageVersion Include="coverlet.MTP" Version="10.0.0" />
-	<PackageVersion Include="CRFricke.Test.Support" Version="10.0.0-beta3.0" />
+	<PackageVersion Include="CRFricke.Test.Support" Version="10.0.0-beta4.0" />
 	<PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.7" />
 	<PackageVersion Include="Microsoft.Extensions.Diagnostics.Testing" Version="10.5.0" />
 	<PackageVersion Include="Microsoft.Testing.Platform" Version="2.2.1" />

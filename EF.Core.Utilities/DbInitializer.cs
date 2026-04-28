@@ -3,15 +3,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CRFricke.EF.Core.Utilities;
 
-internal class DbInitializer : IHostedService
+#pragma warning disable CA1031 // Do not catch general exception types
+
+internal partial class DbInitializer : IHostedService
 {
     private readonly IServiceProvider _serviceProvider;
 
@@ -19,6 +16,28 @@ internal class DbInitializer : IHostedService
     {
         _serviceProvider = serviceProvider;
     }
+
+    #region Log Messages
+
+    [LoggerMessage(EventId = 1, Level = LogLevel.Warning, Message = "DbInitializerOptions contains no DbContext entries.")]
+    static partial void LogNoDbContextEntries(ILogger logger);
+
+    [LoggerMessage(EventId = 2, Level = LogLevel.Warning, Message = "DbInitializationOption.{DbInitializationOption} specified for DbContext '{DbContextType}'; skipping.")]
+    static partial void LogSkippingDbContext(ILogger logger, DbInitializationOption dbInitializationOption, string? dbContextType);
+
+    [LoggerMessage(EventId = 3, Level = LogLevel.Warning, Message = "Duplicate DbContext entry ({DbInitializerOption}); database already initialized using DbInitializationOption.{ProcessedDbInitializationOption}.")]
+    static partial void LogDuplicateDbContext(ILogger logger, DbInitializerOption dbInitializerOption, DbInitializationOption processedDbInitializationOption);
+
+    [LoggerMessage(EventId = 4, Level = LogLevel.Error, Message = "Error occurred initializing database associated with DbContext '{DbContextType}'.")]
+    static partial void LogInitializationError(ILogger logger, Exception ex, string? dbContextType);
+
+    [LoggerMessage(EventId = 5, Level = LogLevel.Error, Message = "Error occurred seeding database associated with DbContext '{DbContextType}'.")]
+    static partial void LogSeedingError(ILogger logger, Exception ex, string? dbContextType);
+
+    [LoggerMessage(EventId = 6, Level = LogLevel.Information, Message = "Database associated with DbContext '{DbContextType}' initialized using DbInitializationOption.{DbInitializationOption}.")]
+    static partial void LogDatabaseInitialized(ILogger logger, string? dbContextType, DbInitializationOption dbInitializationOption);
+
+    #endregion
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
@@ -29,7 +48,7 @@ internal class DbInitializer : IHostedService
         var options = scopedProvider.GetRequiredService<IOptions<DbInitializerOptions>>().Value;
         if (!options.Any())
         {
-            logger.LogWarning("DbInitializerOptions contains no DbContext entries.");
+            LogNoDbContextEntries(logger);
             return;
         }
 
@@ -39,20 +58,14 @@ internal class DbInitializer : IHostedService
         {
             if (option.DbInitializationOption == DbInitializationOption.None)
             {
-                logger.LogWarning(
-                    "DbInitializationOption.{DbInitializationOption} specified for DbContext '{DbContextType}'; skipping.",
-                    option.DbInitializationOption, option.DbContextType.FullName
-                    );
+                LogSkippingDbContext(logger, option.DbInitializationOption, option.DbContextType.FullName);
                 continue;
             }
 
             var processedOption = processedOptions.Find(o => o.DbContextType == option.DbContextType);
             if (processedOption != null)
             {
-                logger.LogWarning(
-                    "Duplicate DbContext entry ({DbInitializerOption}); database already initialized using DbInitializationOption.{DbInitializationOption}.", 
-                    option, processedOption.DbInitializationOption
-                    );
+                LogDuplicateDbContext(logger, option, processedOption.DbInitializationOption);
                 continue;
             }
 
@@ -65,19 +78,17 @@ internal class DbInitializer : IHostedService
                 switch (option.DbInitializationOption)
                 {
                     case DbInitializationOption.Migrate:
-                        await dbContext.Database.MigrateAsync(cancellationToken);
+                        await dbContext.Database.MigrateAsync(cancellationToken).ConfigureAwait(false);
                         break;
 
                     case DbInitializationOption.EnsureCreated:
-                        await dbContext.Database.EnsureCreatedAsync(cancellationToken);
+                        await dbContext.Database.EnsureCreatedAsync(cancellationToken).ConfigureAwait(false);
                         break;
                 }
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Error occurred initializing database associated with DbContext '{DbContextType}'.", 
-                    option.DbContextType.FullName
-                    );
+                LogInitializationError(logger, ex, option.DbContextType.FullName);
                 continue;
             }
 
@@ -85,20 +96,16 @@ internal class DbInitializer : IHostedService
             {
                 try
                 {
-                    await seedingContext.SeedDatabaseAsync(scopedProvider);
+                    await seedingContext.SeedDatabaseAsync(scopedProvider).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
-                    logger.LogError(ex, "Error occurred seeding database associated with DbContext '{DbContextType}'.", 
-                        option.DbContextType.FullName
-                        );
+                    LogSeedingError(logger, ex, option.DbContextType.FullName);
                     continue;
                 }
             }
 
-            logger.LogInformation("Database associated with DbContext '{DbContextType}' initialized using DbInitializationOption.{DbInitializationOption}.", 
-                option.DbContextType.FullName, option.DbInitializationOption
-                );
+            LogDatabaseInitialized(logger, option.DbContextType.FullName, option.DbInitializationOption);
         }
     }
 

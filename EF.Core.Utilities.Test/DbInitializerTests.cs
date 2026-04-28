@@ -34,7 +34,7 @@ public class DbInitializerTests : IClassFixture<WebAppFactory>
 
         Assert.Equal(1, logger.Collector.Count);
         Assert.Equal(LogLevel.Warning, logger.LatestRecord.Level);
-        Assert.Contains("no DbContext entries", logger.LatestRecord.Message);
+        Assert.Contains("no DbContext entries", logger.LatestRecord.Message, StringComparison.Ordinal);
     }
 
     [Fact(DisplayName = "Issues LogWarning when DbInitializerOption is 'None'")]
@@ -53,7 +53,7 @@ public class DbInitializerTests : IClassFixture<WebAppFactory>
 
         Assert.Equal(1, logger.Collector.Count);
         Assert.Equal(LogLevel.Warning, logger.LatestRecord.Level);
-        Assert.Contains("skipping", logger.LatestRecord.Message);
+        Assert.Contains("skipping", logger.LatestRecord.Message, StringComparison.Ordinal);
     }
 
     [Fact(DisplayName = "Calls MigrateAsync when DbInitializerOption is 'Migrate'")]
@@ -72,7 +72,7 @@ public class DbInitializerTests : IClassFixture<WebAppFactory>
 
         Assert.Equal(1, logger.Collector.Count);
         Assert.Equal(LogLevel.Information, logger.LatestRecord.Level);
-        Assert.Contains($"initialized using DbInitializationOption.{dbInitializationOption}", logger.LatestRecord.Message);
+        Assert.Contains($"initialized using DbInitializationOption.{dbInitializationOption}", logger.LatestRecord.Message, StringComparison.Ordinal);
     }
 
     [Fact(DisplayName = "Calls EnsureCreatedAsync when DbInitializerOption is 'EnsureCreated'")]
@@ -91,7 +91,7 @@ public class DbInitializerTests : IClassFixture<WebAppFactory>
 
         Assert.Equal(1, logger.Collector.Count);
         Assert.Equal(LogLevel.Information, logger.LatestRecord.Level);
-        Assert.Contains($"initialized using DbInitializationOption.{dbInitializationOption}", logger.LatestRecord.Message);
+        Assert.Contains($"initialized using DbInitializationOption.{dbInitializationOption}", logger.LatestRecord.Message, StringComparison.Ordinal);
     }
 
     [Fact(DisplayName = "Calls SeedDatabaseAsync when DbInitializerOption is 'SeedOnly'")]
@@ -110,7 +110,7 @@ public class DbInitializerTests : IClassFixture<WebAppFactory>
 
         Assert.Equal(1, logger.Collector.Count);
         Assert.Equal(LogLevel.Information, logger.LatestRecord.Level);
-        Assert.Contains($"initialized using DbInitializationOption.{dbInitializationOption}", logger.LatestRecord.Message);
+        Assert.Contains($"initialized using DbInitializationOption.{dbInitializationOption}", logger.LatestRecord.Message, StringComparison.Ordinal);
     }
 
     [Fact(DisplayName = "Issues LogWarning when same DbContext is specified twice")]
@@ -131,13 +131,13 @@ public class DbInitializerTests : IClassFixture<WebAppFactory>
 
         Assert.Equal(2, logger.Collector.Count);
         Assert.Equal(LogLevel.Warning, logger.LatestRecord.Level);
-        Assert.Contains($"already initialized using DbInitializationOption.{dbInitializationOption}", logger.LatestRecord.Message);
+        Assert.Contains($"already initialized using DbInitializationOption.{dbInitializationOption}", logger.LatestRecord.Message, StringComparison.Ordinal);
     }
 
     [Fact(DisplayName = "Issues LogError when MigrateAsync fails")]
     public async Task Test07Async()
     {
-        var expectedException = new Exception("BOOM! Couldn't migrate database.");
+        var expectedException = new InvalidOperationException("BOOM! Couldn't migrate database.");
 
         var dbInitializationOption = DbInitializationOption.Migrate;
         var dbInitializer = SetupTestEnvironment(
@@ -156,13 +156,13 @@ public class DbInitializerTests : IClassFixture<WebAppFactory>
         Assert.Equal(LogLevel.Error, logger.LatestRecord.Level);
         Assert.NotNull(logger.LatestRecord.Exception);
         Assert.Equal(expectedException.Message, logger.LatestRecord.Exception.Message);
-        Assert.Contains("Error occurred initializing database", logger.LatestRecord.Message);
+        Assert.Contains("Error occurred initializing database", logger.LatestRecord.Message, StringComparison.Ordinal);
     }
 
     [Fact(DisplayName = "Issues LogError when EnsureCreatedAsync fails")]
     public async Task Test08Async()
     {
-        var expectedException = new Exception("BOOM! Couldn't create database.");
+        var expectedException = new InvalidOperationException("BOOM! Couldn't create database.");
 
         var dbInitializationOption = DbInitializationOption.EnsureCreated;
         var dbInitializer = SetupTestEnvironment(
@@ -181,13 +181,13 @@ public class DbInitializerTests : IClassFixture<WebAppFactory>
         Assert.Equal(LogLevel.Error, logger.LatestRecord.Level);
         Assert.NotNull(logger.LatestRecord.Exception);
         Assert.Equal(expectedException.Message, logger.LatestRecord.Exception.Message);
-        Assert.Contains("Error occurred initializing database", logger.LatestRecord.Message);
+        Assert.Contains("Error occurred initializing database", logger.LatestRecord.Message, StringComparison.Ordinal);
     }
 
     [Fact(DisplayName = "Issues LogError when SeedDatabaseAsync fails")]
     public async Task Test09Async()
     {
-        var expectedException = new Exception("BOOM! Couldn't seed database.");
+        var expectedException = new InvalidOperationException("BOOM! Couldn't seed database.");
 
         var dbInitializationOption = DbInitializationOption.EnsureCreated;
         var dbInitializer = SetupTestEnvironment(
@@ -206,7 +206,7 @@ public class DbInitializerTests : IClassFixture<WebAppFactory>
         Assert.Equal(LogLevel.Error, logger.LatestRecord.Level);
         Assert.NotNull(logger.LatestRecord.Exception);
         Assert.Equal(expectedException.Message, logger.LatestRecord.Exception.Message);
-        Assert.Contains("Error occurred seeding database", logger.LatestRecord.Message);
+        Assert.Contains("Error occurred seeding database", logger.LatestRecord.Message, StringComparison.Ordinal);
     }
 
 

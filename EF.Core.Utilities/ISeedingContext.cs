@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace CRFricke.EF.Core.Utilities;
+﻿namespace CRFricke.EF.Core.Utilities;
 
 /// <summary>
 /// Identifies a self seeding database context. 

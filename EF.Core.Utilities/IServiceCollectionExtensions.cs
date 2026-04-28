@@ -1,9 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
 namespace CRFricke.EF.Core.Utilities;
 
@@ -21,6 +18,8 @@ public static class IServiceCollectionExtensions
     [UnconditionalSuppressMessage("ReflectionAnalysis", "IL2075:DynamicallyAccessedMembers", Justification = "Just accessing 'HostedServices' property of passed IServiceCollection implementation.")]
     public static IServiceCollection AddDbInitializer(this IServiceCollection services, Action<DbInitializerOptions> optionsAction)
     {
+        ArgumentNullException.ThrowIfNull(services);
+
         services.Configure(optionsAction);
 
         // In AspNetCore 6.0, ServiceDescriptors for hosted services are stored separately, in the "HostedServices" 

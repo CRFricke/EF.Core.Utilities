@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
+#pragma warning disable CA1515 // Consider making public types internal
+#pragma warning disable CA1062 // Validate arguments of public methods
+
 namespace EF.Core.Utilities.Test.Web.Data.Migrations
 {
     public partial class ApplicationSchema : Migration

@@ -1,20 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+
+#pragma warning disable CA1515 // Consider making public types internal
+#pragma warning disable IDE0052 // Remove unread private members
 
 namespace EF.Core.Utilities.Test.Web.Pages
 {
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public class ErrorModel : PageModel
     {
-        public string RequestId { get; set; }
+        public string RequestId { get; set; } = null!;
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
-#pragma warning disable IDE0052 // Remove unread private members
         private readonly ILogger<ErrorModel> _logger;
-#pragma warning restore IDE0052 // Remove unread private members
 
         public ErrorModel(ILogger<ErrorModel> logger)
         {
