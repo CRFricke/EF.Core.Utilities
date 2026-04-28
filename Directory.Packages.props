@@ -1,0 +1,31 @@
+<Project>
+
+  <PropertyGroup>
+	<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<!-- EF.Core.Utilities packages -->
+	<PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.7" />
+	<PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.7" />
+	<PackageVersion Include="Microsoft.SourceLink.GitHub" Version="10.0.203" />
+
+	<!-- EF.Core.Utilities.Test.Web packages -->
+	<PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.7" />
+	<PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="10.0.7" />
+	<PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.7" />
+	<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.7" />
+	<PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.7" />
+	<PackageVersion Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="10.0.7" />
+
+	<!-- EF.Core.Utilities.Test packages -->
+	<PackageVersion Include="coverlet.MTP" Version="10.0.0" />
+	<PackageVersion Include="CRFricke.Test.Support" Version="10.0.0-beta4.0" />
+	<PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.7" />
+	<PackageVersion Include="Microsoft.Extensions.Diagnostics.Testing" Version="10.5.0" />
+	<PackageVersion Include="Microsoft.Testing.Platform" Version="2.2.1" />
+	<PackageVersion Include="Moq" Version="4.20.72" />
+	<PackageVersion Include="xunit.v3.mtp-v2" Version="3.2.2" />
+  </ItemGroup>
+
+</Project>

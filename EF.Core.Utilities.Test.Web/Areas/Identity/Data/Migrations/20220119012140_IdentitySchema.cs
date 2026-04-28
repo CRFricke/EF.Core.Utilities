@@ -1,5 +1,7 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+
+#pragma warning disable CA1062 // Validate arguments of public methods
+#pragma warning disable CA1515 // Because an application's API isn't typically referenced from outside the assembly, types can be made internal
 
 namespace EF.Core.Utilities.Test.Web.Areas.Identity.Data.Migrations
 {

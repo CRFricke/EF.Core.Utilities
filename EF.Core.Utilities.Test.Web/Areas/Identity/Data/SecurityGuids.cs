@@ -1,29 +1,26 @@
-﻿using System.Collections.Generic;
+﻿namespace EF.Core.Utilities.Test.Web.Areas.Identity.Data;
 
-namespace EF.Core.Utilities.Test.Web.Areas.Identity.Data
+internal static class SecurityGuids
 {
-    public class SecurityGuids
+    /// <summary>
+    /// The Guids of the system <see cref="SecurityRole">SecurityRoles</see>.
+    /// </summary>
+    internal static class Role
     {
         /// <summary>
-        /// The Guids of the system <see cref="SecurityRole">SecurityRoles</see>.
+        /// The Guid assigned to the Administrator SecurityRole.
         /// </summary>
-        public class Role
-        {
-            /// <summary>
-            /// The Guid assigned to the Administrator SecurityRole.
-            /// </summary>
-            public const string Administrator = "39dbc29b-c42c-4d72-a923-64a34a819e4f";
-        }
+        public const string Administrator = "39dbc29b-c42c-4d72-a923-64a34a819e4f";
+    }
 
+    /// <summary>
+    /// The Guids of the system Users.
+    /// </summary>
+    internal static class User
+    {
         /// <summary>
-        /// The Guids of the system Users.
+        /// The Guid assigned to the Administrator <see cref="SecurityUser"/> account.
         /// </summary>
-        public class User
-        {
-            /// <summary>
-            /// The Guid assigned to the Administrator <see cref="SecurityUser"/> account.
-            /// </summary>
-            public const string Administrator = "c8121441-032f-4975-aa2a-d9f0a1ce7a61";
-        }
+        public const string Administrator = "c8121441-032f-4975-aa2a-d9f0a1ce7a61";
     }
 }
