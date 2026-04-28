@@ -4,6 +4,8 @@ on:
   push:
     tags: ['v*']
 
+  workflow_dispatch:
+
 env:
   BUILD_CONFIG: 'Release'
   DOTNET_VERSION: '10.0.x'
